@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>jr41</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    
+	var pci = $("#pci").val()
+	
+	$.ajax({
+		type:'GET',
+		url:'/jr41/adminProductCategory/list',
+		success: function(data) {
+			
+			for (var i = 0; i < data.length; i++) {
+				if(pci == data[i].productCategroyIdx){
+					var str = "<option value='" + data[i].productCategroyIdx + "' selected>" + data[i].productCategoryName + "</option>";
+				}
+				else {
+					var str = "<option value='" + data[i].productCategroyIdx + "'>" + data[i].productCategoryName + "</option>";
+				}
+				$("#productCategoryIdx").append(str);
+			}
+		 },
+		 error: function() {
+			 
+		 }
+	 })
+
+	
+	var productIdx = $("#productIdx").val();
+	
+	$("#btn-adproLi").on("click", function() {
+		location.href="/jr41/adminProduct";
+	});
+	
+	$("#btn-adproMo").on("click", function() {
+		$("#method").val("POST");
+		var frm = $("#frm")[0];
+
+		frm.action = "/jr41/adminProductUpdate/" + productIdx;
+		frm.submit();
+		
+	});
+	
+	$("#btn-adproDe").on("click", function() {
+		$("#method").val("POST");
+		var frm = $("#frm")[0];
+		frm.action = "/jr41/adminProductDelete/" + productIdx;
+		frm.submit();
+	});
+	
+	
+});
+</script>
+
+</head>
+<body>
+	<header th:include="layout/header :: header">
+	</header>
+	
+	<main class="container my-5 mt-auto">
+		<div class="row mt-5 mx-auto text-center">
+			<div class="col">
+				<h3>상품 등록</h3>
+			</div>
+		</div>
+		<form id="frm" method="post" enctype="multipart/form-data">
+			<div class="row my-3">
+				<div class="col-sm-1  my-auto">
+					<h6 class="text-center">상품번호</h6>
+				</div>
+				<div class="col-sm-5 my-auto">
+					<input type="text" id="productIdx" name="productIdx" class="col-sm-9 form-control" placeholder="상품번호를 입력해주세요" disabled th:value="${AdminProductList.productIdx}">
+				</div>
+				<div class="col-sm-1 my-auto">
+					<h6 class="text-center">가게이름</h6>
+				</div>
+				<div class="col-sm-5 my-auto">
+					<input type="text" id="adminStore" name="adminStore" class="col-sm-9 form-control" placeholder="상품번호를 입력해주세요" th:value="${AdminProductList.adminStore}" readonly>
+				</div>
+			</div>
+			<div class="row my-3">
+				<div class="col-sm-1  my-auto">
+					<h6 class="text-center">카테고리</h6>
+				</div>
+				<div class="col-sm-5 my-auto">
+					<div class="dropdown">
+						<input type="hidden" id="pci" name="pci" class="col-sm-9 form-control" placeholder="상품번호를 입력해주세요" th:value="${AdminProductList.productCategoryIdx}" readonly>
+						<select id="productCategoryIdx" name="productCategoryIdx" class="form-control">
+						    
+						</select>
+					</div>
+				</div>
+				<div class="col-sm-1 my-auto">
+					<h6 class="text-center">가격</h6>
+				</div>
+				<div class="col-sm-5 my-auto">
+					<input type="text" id="productPrice" name="productPrice" class="col-sm-9 form-control" placeholder="가격 입력해주세요" th:value="${AdminProductList.productPrice}">
+				</div>
+			</div>
+			<div class="row my-3">
+				<div class="col-sm-1  my-auto">
+				
+				</div>
+				<div class="col-sm-5 my-auto">
+				
+				</div>
+				<div class="col-sm-1 my-auto">
+					<h6 class="text-center">상품수량</h6>
+				</div>
+				<div class="col-sm-5 my-auto">
+					<input type="text" id="productStockCnt" name="productStockCnt" class="col-sm-9 form-control" placeholder="상품수량을 입력해주세요" th:value="${AdminProductList.productStockCnt}">
+				</div>
+			</div>
+			<div class="row">
+				<a th:each="file : ${AdminProductList.fileList}" th:href="@{/board/downloadProductFile.do(fileIdx=${file.FileIdx},boardIdx=${file.ProductIdx})}" th:text="|${file.originalFileName}(${file.fileSize} kb) |"></a>
+			</div>
+			<div class="row my-3">
+				<div class="col-sm-1  my-auto">
+					
+				</div>
+				<div class="col-sm-5 my-auto">
+					
+				</div>
+				<div class="col-sm-1 my-auto">
+					<h6 class="text-center">대표이미지</h6>
+				</div>
+				
+				
+				<div class="col-sm-5 my-auto">
+					<input type="file" id="productImg" name="productImg" class="col-sm-9 form-control" multiple>
+				</div>
+			</div>
+			<div class="row my-3">
+				<div class="col-sm-1  my-auto">
+					<h6 class="text-center">상품명</h6>
+				</div>
+				<div class="col-sm-11 my-auto">
+					<input type="text" id="productName" name="productName" class="col-sm-9 form-control" placeholder="상품명을 입력해주세요"  th:value="${AdminProductList.productName}">
+				</div>
+			</div>	
+			<div class="row">
+				<div class="col-sm-1">
+					<h6 class="text-center">내용</h6>
+				</div>
+				<div class="col-sm-11">
+					<textarea rows="10" class="form-control h-5" id="productDescription" name="productDescription" placeholder="내용을 입력하세요" th:text="${AdminProductList.productDescription}" ></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<a th:each="file : ${AdminProductList.fileList}" th:href="@{/board/downloadProductFile.do(fileIdx=${file.FileIdx},boardIdx=${file.ProductIdx})}" th:text="|${file.originalFileName}(${file.fileSize} kb) |"></a>
+			</div>
+			<div class="row my-3 mt-3 my-auto">
+				<div class="col-sm-1">
+					<h6 class="text-center">첨부</h6>
+				</div>
+				<div class="col-sm-11">
+					<input type="file" id="files" name="files" class="col-sm-9 form-control" placeholder="제목을 입력해주세요" multiple>
+				</div>
+				<div class="col-sm-1">
+				</div>
+			</div>
+			<div>
+				<input type="hidden" id="method" name="_method">
+			</div>
+			<div class="row mt-5 mx-auto">
+				<div class="col text-center">
+					<button type="button" id="btn-adproLi" name="btn-adproLi" class="btn btn-secondary">목록</button>
+					<button type="button" id="btn-adproMo" name="btn-adproMo" class="btn btn-secondary">수정</button>
+					<button type="button" id="btn-adproDe" name="btn-adproDe" class="btn btn-secondary">삭제</button>
+				</div>
+			</div>
+		</form>
+	</main>
+		
+	<footer th:include="layout/footer :: footer">
+	</footer>
+	
+</body>
+</html>

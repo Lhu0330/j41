@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.mapper.AdminNoticeMapper">
+	<select id="selectAdminNotice" resultType="com.bitc.dto.AdminNoticeDto">
+		<![CDATA[ 
+			SELECT
+				notice_idx, notice_title, customers_nick_name, notice_date, admin_store
+			FROM
+				notice_board
+			Where
+				deleted_yn="N"
+			ORDER BY
+				notice_idx DESC
+		]]>
+	</select>
+	<!--useGenderatedKeys와 keyProperty-->
+	<insert id="insertAdminNotice" parameterType="com.bitc.dto.AdminNoticeDto" useGeneratedKeys="true" keyProperty="noticeIdx">
+		<![CDATA[
+			INSERT INTO
+				notice_board (notice_title, notice_contents, notice_date, admin_store, customers_nick_name)
+			VALUES
+				(#{noticeTitle}, #{noticeContents}, NOW(), 'eee', 'nickname4')
+		]]>
+	</insert>
+	
+	<select id="selectAdminNoticeDetail" parameterType="int" resultType="com.bitc.dto.AdminNoticeDto">
+		<![CDATA[
+			SELECT
+				notice_idx, notice_title, notice_contents, customers_nick_name, notice_date, admin_store
+			FROM
+				notice_board
+			WHERE
+				notice_idx = #{noticeIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<update id="deleteAdminNotice" parameterType="int">
+		<![CDATA[
+			UPDATE
+				notice_board
+			SET
+				deleted_yn = 'Y'
+			WHERE
+				notice_idx = #{noticeIdx}
+		]]>
+	</update>
+
+	
+	<update id="updateAdminNotice" parameterType="com.bitc.dto.AdminNoticeDto">
+		<![CDATA[
+			UPDATE
+				notice_board
+			SET
+				notice_title = #{noticeTitle}, notice_contents = #{noticeContents}
+			WHERE
+				notice_idx = #{noticeIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</update>
+	
+	<insert id="insertAdminNoticeFileList" parameterType="com.bitc.dto.AdminNoticeFileDto">
+		<![CDATA[
+			INSERT INTO notice_board_file
+				(notice_idx, nbf_original_file_name, nbf_stored_file_path, nbf_file_size, customers_nick_name)
+			VALUES
+		]]>
+		<foreach collection="list" item="item" separator=",">
+			(#{item.noticeIdx},
+			#{item.nbfOriginalFileName},
+			#{item.nbfStoredFilePath},
+			#{item.nbfFileSize},
+			'nickname5')
+		</foreach>
+	</insert>
+	<!--저번과 같은 실수가 일어남 sql문에서 select할때에는 필요없다고 생각하더라도 전체를 다 읽어 오는 편이 오류를 줄일 수 있을듯-->
+	<select id="selectAdminNoticeFileList" parameterType="int" resultType="com.bitc.dto.AdminNoticeFileDto">
+		<![CDATA[
+			SELECT
+				notice_idx, notice_board_file_idx, nbf_original_file_name, nbf_stored_file_path, customers_nick_name,
+				FORMAT(ROUND(nbf_file_size / 1024), 0) AS nbf_file_size
+			FROM
+				notice_board_file
+			WHERE
+				notice_idx = #{noticeIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<!-- map : 매개변수가 1개일 경우 해당 매개변수의 타입을 사용하면 되고, 여러개일 경우 DTO 클래스 타입을 생성하여 매개변수의 타입을 지정하면되나, 매개변수의 타입 지정을 위해 DTO 클래스를 생성하기에는 애매할 경우 사용하는 것이 map 타입임 -->
+	<select id="selectAdminNoticeFileInfo" parameterType="map" resultType="com.bitc.dto.AdminNoticeFileDto">
+		<![CDATA[
+			SELECT
+				nbf_original_file_name, nbf_stored_file_path, nbf_file_size
+			FROM
+				notice_board_file
+			WHERE
+				notice_board_file_idx = #{fileIdx}
+			AND
+				notice_idx = #{boardIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
