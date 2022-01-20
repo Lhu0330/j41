@@ -1,0 +1,100 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>footer 영역</title>
+<link rel="stylesheet" href="./css/bootstrap.css">
+    <script src="./js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+
+   
+	<div class="container py-3">
+	 <header class="p-0">
+<!--         <header class="p-0 " th:fragment="footer(param1, param2, param3, param4, param5, param6, param7)">
+ -->            <nav class="navbar navbar-expand-sm">
+               <div class="ms-5 ps-5">
+                    <form action="#"class="form-inline ms-5 ps-5">
+                        <div class="input-group my-3 ms-5">
+                            <input type="password" class="form-control"​>
+                            <button class="btn btn-dark">search </button>   
+                        </div>
+                      </form>
+                </div>
+               <div class="navbar-nav ms-auto me-5 pe-5">
+                  <ul class="navbar-nav ms-auto pe-5 me-5">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link link-dark">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link link-dark">회원가입</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link link-dark">마이페이지</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a href="#" class="nav-link link-dark">장바구니</a>
+                    </li>
+                </ul>
+               
+               </div>
+             
+            </nav>
+
+            <div class="row">
+                <div class="col-sm-8 mx-auto p-1 text-center">
+                    <h1 class="display-4 fw-bold">JR41</h1>
+                </div>    
+                
+                <!-- <p th:text="${MenuList}"></p> -->
+                <div class="row col-sm-9 mx-auto p-4">
+                        <!-- <ul class="nav nav-justified nav-tabs"  th:each="list : ${MenuList}">
+                            <li class="nav-item">
+                            	<a href="/jr41/" th:attrappend="href=${list.productCategoryIdx}" class="text-decoration-none">컵</a>
+                              </li> -->
+						<ul class="nav nav-justified nav-tabs">
+							<li class="nav-item">
+<!-- 								<a href="/jr41/list" class="nav-link link-dark active" th:text="${param1}"></a>
+                                -->  <a href="/jr41/list" class="nav-link link-dark">컵</a>
+                             </li>
+ 
+                            <li class="nav-item">
+<!--                                 <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param2}"></a> -->                        
+								<a href="/jr41/list"  class="nav-link link-dark">컵</a>
+						    </li>
+                            <li class="nav-item">
+<!--                                 <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param3}"></a>
+ -->                           
+ 							<a href="/jr41/list"  class="nav-link link-dark">컵</a>
+ 							 </li>
+                            <li class="nav-item">
+<!--                                  <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param4}"></a>
+ -->                           
+ 								<a href="/jr41/list" class="nav-link link-dark">컵</a>
+ 							 </li>
+                            <li class="nav-item">
+<!--                                 <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param5}"></a>-->  
+ 							<a href="/jr41/list" class="nav-link link-dark">컵</a>                         
+ 							 </li>
+                            <li class="nav-item">
+<!--                                  <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param6}"></a>
+ -->                           <a href="#" class="nav-link link-dark">컵</a>
+  							<a href="/jr41/list" class="nav-link link-dark">컵</a>                         
+ 
+ 								 </li>
+                            <li class="nav-item">
+<!--                                 <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param7}"></a>
+ -->                            
+ 							<a href="#" class="nav-link link-dark">컵</a>
+ 							 <a href="/jr41/list" class="nav-link link-dark">컵</a>                         
+ 							
+ 							</li>
+
+                        </ul>
+                    </div>
+            </div>
+            </header>
+            </div>
+	</body>
+</html>

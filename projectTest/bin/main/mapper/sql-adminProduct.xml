@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.mapper.AdminProductMapper">
+	<select id="selectAdminProduct" resultType="com.bitc.dto.AdminProductDto">
+		<![CDATA[ 
+			SELECT
+				product_idx, product_category_idx, product_name, product_price, product_description, product_stock_cnt, admin_store, pc.product_category_name as product_category_name 
+			FROM
+				product p, product_category pc
+			Where
+				p.product_category_idx = pc.product_categroy_idx
+			And	
+				deleted_yn="N"
+			ORDER BY
+				Product_idx DESC
+		]]>
+	</select>
+	<!--useGenderatedKeys와 keyProperty-->
+	<insert id="insertAdminProduct" parameterType="com.bitc.dto.AdminProductDto" useGeneratedKeys="true" keyProperty="productIdx">
+		<![CDATA[
+			INSERT INTO
+				product (product_category_idx, product_name, product_price, product_description, product_stock_cnt, admin_store)
+			VALUES
+				(#{productCategoryIdx}, #{productName}, #{productPrice}, #{productDescription}, #{productStockCnt}, 'eee')
+		]]>
+	</insert>
+	
+	<select id="selectAdminProductDetail" parameterType="int" resultType="com.bitc.dto.AdminProductDto">
+		<![CDATA[
+			SELECT
+				product_idx, product_category_idx, product_name, product_price, product_description, product_stock_cnt, admin_store
+			FROM
+				product
+			WHERE
+				product_idx = #{productIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<update id="deleteAdminProduct" parameterType="int">
+		<![CDATA[
+			UPDATE
+				product
+			SET
+				deleted_yn = 'Y'
+			WHERE
+				product_idx = #{productIdx}
+		]]>
+	</update>
+
+	
+	<update id="updateAdminProduct" parameterType="com.bitc.dto.AdminProductDto">
+		<![CDATA[
+			UPDATE
+				product
+			SET
+				product_category_idx = #{productCategoryIdx}, product_name = #{productName}, product_price = #{productPrice}, product_description = #{productDescription}, product_stock_cnt = #{productStockCnt}, admin_store = #{adminStore}
+			WHERE
+				product_idx = #{productIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</update>
+	
+	<insert id="insertAdminProductFileList" parameterType="com.bitc.dto.AdminProductFileDto">
+		<![CDATA[
+			INSERT INTO product_file
+				(product_idx, original_file_name, stored_file_path, file_size, customers_nick_name)
+			VALUES
+		]]>
+		<foreach collection="list" item="item" separator=",">
+			(#{item.productIdx},
+			#{item.originalFileName},
+			#{item.storedFilePath},
+			#{item.fileSize},
+			'nickname5')
+		</foreach>
+	</insert>
+	<!--저번과 같은 실수가 일어남 sql문에서 select할때에는 필요없다고 생각하더라도 전체를 다 읽어 오는 편이 오류를 줄일 수 있을듯-->
+	<select id="selectAdminProductFileList" parameterType="int" resultType="com.bitc.dto.AdminProductFileDto">
+		<![CDATA[
+			SELECT
+				product_idx, file_idx, original_file_name, stored_file_path, customers_nick_name,
+				FORMAT(ROUND(file_size / 1024), 0) AS file_size
+			FROM
+				product_file
+			WHERE
+				product_idx = #{productIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<!-- map : 매개변수가 1개일 경우 해당 매개변수의 타입을 사용하면 되고, 여러개일 경우 DTO 클래스 타입을 생성하여 매개변수의 타입을 지정하면되나, 매개변수의 타입 지정을 위해 DTO 클래스를 생성하기에는 애매할 경우 사용하는 것이 map 타입임 -->
+	<select id="selectAdminProductFileInfo" parameterType="map" resultType="com.bitc.dto.AdminProductFileDto">
+		<![CDATA[
+			SELECT
+				original_file_name, stored_file_path, file_size
+			FROM
+				product_file
+			WHERE
+				file_idx = #{fileIdx}
+			AND
+				product_idx = #{boardIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<select id="selectCategoryList" resultType="com.bitc.dto.CategoryProductDto">
+		<![CDATA[ 
+			SELECT
+				product_categroy_idx, product_category_name 
+			FROM
+				product_category
+			ORDER BY
+				product_categroy_idx
+		]]>
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

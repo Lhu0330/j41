@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <link rel="stylesheet" href="./css/bootstrap.css">
+
+    <script src="./js/bootstrap.bundle.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+ <style>
+    .img-box {
+      width: 500px;
+      height: 500px;
+    }
+  </style>
+</head> 
+<body>
+	 <footer th:replace="layout/header :: header"></footer>
+	<!-- <header th:include="layout/header :: header(${jrList[0].productCategoryIdx},${jrList[1].productCategoryIdx}, ${jrList[2].productCategoryIdx},${jrList[3].productCategoryIdx},
+	   ${jrList[4].productCategoryIdx}, ${jrList[5].productCategoryIdx},'7')"></header> -->
+   <main class="container">
+   <div class="container-fluid">
+   <!-- 질문 : witdh 조절 -->
+   <div id="div-carousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#div-carousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#div-carousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#div-carousel" data-bs-slide-to="2"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+         <img src="homeimage1.jpg"  th:src="@{/images/homeimage1.png}" class="d-block w-100" style="max-height: 500px;">
+          <div class="carousel-caption text-start">
+            <h3>캐러셀 제목 1</h3>
+            <p>캐러셀 내용.....</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+         <img src="homeimage1.jpg"  th:src="@{/images/homeimage1.png}" class="d-block w-100" style="max-height: 500px;">
+          <div class="carousel-caption">
+            <h3>캐러셀 제목 2</h3>
+            <p>캐러셀 내용.....</p>
+           
+          </div>
+        </div>
+        <div class="carousel-item">
+         <img src="homeimage1.jpg"  th:src="@{/images/homeimage1.png}" class="d-block w-100" style="max-height: 500px;">
+          <div class="carousel-caption text-end">
+            <h3>캐러셀 제목 3</h3>
+            <p>캐러셀 내용.....</p>
+           
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#div-carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#div-carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+   
+   
+   </div>
+  	
+
+
+    <div class="bg-light py-5">
+      <div class="container">
+      	<h5 class="text-center">Weekly Best</h5>
+        <div class="row mb-3">
+          <div class="col-sm-4">
+            <div class="card shadow-sm">
+              <img src="cup1.jpg"  th:src="@{/images/cup1.jpg}">
+              <div class="card-body">
+                <p class="card-text"> <span th:text="${jrList[1].productName}"></span></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card shadow-sm">
+             <img src="cup1.jpg"  th:src="@{/images/cup1.jpg}">
+              <div class="card-body">
+                <p class="card-text">This is</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card shadow-sm">
+              <img src="cup1.jpg"  th:src="@{/images/cup1.jpg}">
+              <div class="card-body">
+                <p class="card-text">This is a wir.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+         <div class="bg-light">
+      <div class="container">
+      	<h5 class="text-center">New Arrival</h5>
+        <div class="row mb-3">
+          <div class="col-sm-4">
+            <div class="card shadow-sm">
+              <img src="cup1.jpg"  th:src="@{/images/cup1.jpg}">
+              <div class="card-body">
+                <p class="card-text">컴</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card shadow-sm">
+              <img src="cup1.jpg"  th:src="@{/images/cup1.jpg}">
+              <div class="card-body">
+                <p class="card-text">This is a wider card </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="card shadow-sm">
+              <img src="cup1.jpg"  th:src="@{/images/cup1.jpg}">
+              <div class="card-body">
+                <p class="card-text">This is a wider ca</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        </div>
+    </main>
+    <footer th:replace="layout/footer :: footer"></footer>
+</body>
+</html>

@@ -81,6 +81,7 @@ public class CustomerController {
 			HttpSession session = request.getSession();
 			session.setAttribute("customerId", customer.getCustomerId());
 			session.setAttribute("customerIdx", customer.getCustomerIdx());
+			session.setAttribute("adminStore", customer.getAdminStore());
 			session.setMaxInactiveInterval(30);
 			return "redirect:/login/mypage";
 		} else {

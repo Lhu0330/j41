@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.mapper.AdminMemberMapper">
+	<select id="selectAdminMember" resultType="com.bitc.dto.AdminMemberDto">
+		<![CDATA[ 
+			SELECT
+				customer_idx, customer_email,customer_id, customer_pw, customer_name, customer_nick_name, customer_address, customer_phone, customer_level, admin_yn, admin_store, customer_date
+			FROM
+				customers
+			WHERE
+				deleted_yn = 'N'
+			ORDER BY
+				customer_idx DESC
+		]]>
+	</select>
+	
+	<select id="selectAdminMemberDetail" parameterType="int" resultType="com.bitc.dto.AdminMemberDto">
+		<![CDATA[
+			SELECT
+				customer_idx, customer_email,customer_id, customer_pw, customer_name, customer_nick_name, customer_address, customer_phone, customer_level, admin_yn, admin_store, customer_date
+			FROM
+				customers
+			WHERE
+				customers_idx = #{MemberIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<update id="deleteAdminMember" parameterType="int">
+		<![CDATA[
+			UPDATE
+				customers
+			SET
+				deleted_yn = 'Y'
+			WHERE
+				customer_idx = #{MemberIdx}
+		]]>
+	</update>
+
+	
+	<update id="updateAdminMember" parameterType="com.bitc.dto.AdminMemberDto">
+		<![CDATA[
+			UPDATE
+				customers
+			SET
+				customer_level = #{customersLevel}, admin_yn = #{adminYn},
+			WHERE
+				customer_idx = #{MemberIdx}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
