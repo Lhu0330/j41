@@ -20,11 +20,6 @@ public class JServiceImpl implements JService {
 	}
 	
 	@Override
-	public List<JDto> selectPayList() throws Exception {
-		return jMapper.selectPayList();
-	}
-	
-	@Override
 	public List<JDto> selectSuccessList() throws Exception {
 		return jMapper.selectSuccessList();
 	}
@@ -42,17 +37,6 @@ public class JServiceImpl implements JService {
 	@Override
 	public void deleteCart(int productIdx) throws Exception {
 		jMapper.deleteCart(productIdx);
-	}
-	
-	@Override
-	public void checkedCart(int productIdx) throws Exception {
-		jMapper.checkedCart(productIdx);
-	}
-
-	
-	@Override
-	public void checkedNotCart(int productIdx) throws Exception {
-		jMapper.checkedNotCart(productIdx);
 	}
 
 	@Override

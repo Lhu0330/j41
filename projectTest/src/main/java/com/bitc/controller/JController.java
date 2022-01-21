@@ -20,6 +20,10 @@ public class JController {
 	@Autowired
 	private JService jService;
 
+	@RequestMapping("/")
+	public String index() throws Exception {
+		return "index";
+	}
 
 	@RequestMapping("/cart.do")
 	public ModelAndView cartList() throws Exception {
@@ -32,8 +36,8 @@ public class JController {
 	@RequestMapping("/cart/order.do")
 	public ModelAndView orderpage(JDto cart) throws Exception {
 		ModelAndView mv = new ModelAndView("/cart/order");
-		List<JDto> PayList = jService.selectPayList();
-		mv.addObject("PayList", PayList);
+		List<JDto> cartList = jService.selectCartList();
+		mv.addObject("cartList", cartList);
 		
 		JDto cartsum = jService.selectCostCalculate(cart);
 		mv.addObject("cartsum", cartsum);
@@ -57,8 +61,6 @@ public class JController {
 		
 		return result;
 	}
-	
-	// 체크박스
 
 	@RequestMapping("/cart/order/success.do")
 	public String ordersuccess(JDto success) throws Exception {

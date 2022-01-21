@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitc.mapper.JMapper">
+	<select id="selectCartList" resultType="com.bitc.dto.JDto">
+		<![CDATA[
+			SELECT
+				product_idx, product_name, cart_qty, (product_price * cart_qty) AS product_price, delivery_cost
+			FROM
+				t_basket
+			WHERE
+			    cart_qty > 0	
+			ORDER BY
+				product_idx DESC
+			
+		]]>
+	</select>
+
+	<select id="selectSuccessList" resultType="com.bitc.dto.JDto">
+		<![CDATA[
+			SELECT
+				product_idx, product_name, success_qty, product_price, delivery_cost
+			FROM
+				t_basket
+			WHERE
+			    success_qty > 0	
+			ORDER BY
+				product_idx DESC
+			
+		]]>
+	</select>
+	
+	<select id="selectCostCalculate" resultType="com.bitc.dto.JDto">
+		<![CDATA[
+			SELECT
+				SUM(product_price * cart_qty) AS bs_cost, MAX(delivery_cost) AS ds_cost,
+				(SUM(product_price * cart_qty) + MAX(delivery_cost)) AS final_cost
+			FROM
+				t_basket
+			WHERE
+			    cart_qty > 0
+			
+		]]>
+	</select>
+
+	<insert id="insertCart" parameterType="com.bitc.dto.JDto">
+		<![CDATA[
+			INSERT INTO
+				t_basket (product_name, cart_qty, product_price, delivery_cost)
+			VALUES
+				(#{productName}, #{cartQty}, #{productPrice}, #{deliveryCost})
+		]]>
+	</insert>
+
+	<update id="deleteCart" parameterType="int">
+		<![CDATA[
+			UPDATE
+				t_basket
+			SET
+				cart_qty = 0
+			WHERE
+				product_idx = #{productIdx}
+		]]>
+	</update>
+
+	<update id="updateCart" parameterType="com.bitc.dto.JDto">
+		<![CDATA[
+			UPDATE
+				t_basket
+			SET
+				product_name = #{productName}, cart_qty = #{cartQty}, product_price = #{productPrice}, delivery_cost = #{deliveryCost}
+			WHERE
+				product_idx = #{productIdx}
+		]]>
+	</update>
+
+	<update id="updateSuccess" parameterType="com.bitc.dto.JDto">
+		<![CDATA[
+			UPDATE
+				t_basket
+			SET
+				success_qty = success_qty + cart_qty, product_stock_cnt = product_stock_cnt - cart_qty, cart_qty = 0
+			WHERE
+				cart_qty > 0
+		]]>
+	</update>
+</mapper >

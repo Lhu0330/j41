@@ -12,7 +12,6 @@ public class JDto {
 	private int cartQty;
 	private int successQty;
 	private int productStockCnt;
-	private char checkedYn;
 	private int bsCost;
 	private int dsCost;
 	private int finalCost;
