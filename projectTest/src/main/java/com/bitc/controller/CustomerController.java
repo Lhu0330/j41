@@ -23,12 +23,6 @@ public class CustomerController {
 	@Autowired
 	public CustomerService customerService;
 	
-	// 테스트 페이지
-	@RequestMapping("/")
-	public String test() throws Exception {
-		return "/index";
-	}
-	
 	// 회원가입 페이지
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public String openRegister() throws Exception {
