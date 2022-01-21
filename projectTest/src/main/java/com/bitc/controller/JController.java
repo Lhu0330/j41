@@ -19,12 +19,7 @@ public class JController {
 
 	@Autowired
 	private JService jService;
-
-	@RequestMapping("/")
-	public String index() throws Exception {
-		return "index";
-	}
-
+	
 	@RequestMapping("/cart.do")
 	public ModelAndView cartList() throws Exception {
 		ModelAndView mv = new ModelAndView("/cart/cartList");
