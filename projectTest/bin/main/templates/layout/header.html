@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -7,23 +8,24 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<body>
 
-
-   
-	<div class="container py-3">
-	 <header class="p-0">
-<!--         <header class="p-0 " th:fragment="footer(param1, param2, param3, param4, param5, param6, param7)">
- -->            <nav class="navbar navbar-expand-sm">
-               <div class="ms-5 ps-5">
-                    <form action="#"class="form-inline ms-5 ps-5">
-                        <div class="input-group my-3 ms-5">
+	<div class="container py-2">
+        <header class="p-0">
+            <nav class="navbar navbar-expand-sm pt-0">
+               <div>
+                    <form action="#"class="form-inline my-1 my-lg-0">
+                        <div class="input-group my-3">
                             <input type="password" class="form-control"​>
-                            <button class="btn btn-dark">search </button>   
+                            <button class="btn btn-dark">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            
                         </div>
                       </form>
                 </div>
-               <div class="navbar-nav ms-auto me-5 pe-5">
-                  <ul class="navbar-nav ms-auto pe-5 me-5">
+
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a href="#" class="nav-link link-dark">로그인</a>
                     </li>
@@ -33,68 +35,45 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link link-dark">마이페이지</a>
                     </li>
-                    <li class="nav-item me-5">
-                        <a href="#" class="nav-link link-dark">장바구니</a>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link link-dark">
+                            <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                        </a>
                     </li>
                 </ul>
-               
-               </div>
-             
             </nav>
 
             <div class="row">
-                <div class="col-sm-8 mx-auto p-1 text-center">
+                <div class="col-8 mx-auto p-1 text-center">
                     <h1 class="display-4 fw-bold">JR41</h1>
                 </div>    
-                
-                <!-- <p th:text="${MenuList}"></p> -->
-                <div class="row col-sm-9 mx-auto p-4">
-                        <!-- <ul class="nav nav-justified nav-tabs"  th:each="list : ${MenuList}">
+                    
+                <div class="row mx-auto p-4">
+                        <ul class="nav nav-justified nav-tabs">
                             <li class="nav-item">
-                            	<a href="/jr41/" th:attrappend="href=${list.productCategoryIdx}" class="text-decoration-none">컵</a>
-                              </li> -->
-						<ul class="nav nav-justified nav-tabs">
-							<li class="nav-item">
-<!-- 								<a href="/jr41/list" class="nav-link link-dark active" th:text="${param1}"></a>
-                                -->  <a href="/jr41/list" class="nav-link link-dark">컵</a>
-                             </li>
- 
+                                <a href="#" class="nav-link link-dark">컵</a>
+                            </li>
                             <li class="nav-item">
-<!--                                 <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param2}"></a> -->                        
-								<a href="/jr41/list"  class="nav-link link-dark">컵</a>
-						    </li>
+                                <a href="#" class="nav-link link-dark">그릇,접시</a>
+                            </li>
                             <li class="nav-item">
-<!--                                 <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param3}"></a>
- -->                           
- 							<a href="/jr41/list"  class="nav-link link-dark">컵</a>
- 							 </li>
+                                <a href="#" class="nav-link link-dark">스푼,포크</a>
+                            </li>
                             <li class="nav-item">
-<!--                                  <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param4}"></a>
- -->                           
- 								<a href="/jr41/list" class="nav-link link-dark">컵</a>
- 							 </li>
+                                <a href="#" class="nav-link link-dark">홈카페용품</a>
+                            </li>
                             <li class="nav-item">
-<!--                                 <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param5}"></a>-->  
- 							<a href="/jr41/list" class="nav-link link-dark">컵</a>                         
- 							 </li>
+                                <a href="#" class="nav-link link-dark">선물세트</a>
+                            </li>
                             <li class="nav-item">
-<!--                                  <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param6}"></a>
- -->                           <a href="#" class="nav-link link-dark">컵</a>
-  							<a href="/jr41/list" class="nav-link link-dark">컵</a>                         
- 
- 								 </li>
+                                <a href="#" class="nav-link link-dark">인테리어</a>
+                            </li>
                             <li class="nav-item">
-<!--                                 <a href="/jr41?l=2" class="nav-link link-dark" th:text="${param7}"></a>
- -->                            
- 							<a href="#" class="nav-link link-dark">컵</a>
- 							 <a href="/jr41/list" class="nav-link link-dark">컵</a>                         
- 							
- 							</li>
+                                <a href="#" class="nav-link link-dark">공지사항</a>
+                            </li>
 
                         </ul>
                     </div>
-            </div>
-            </header>
             </div>
 	</body>
 </html>
