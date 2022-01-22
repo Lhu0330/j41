@@ -49,6 +49,17 @@
 		]]>
 	</select>
 	
+	<select id="bringCustomerInfo" resultType="com.bitc.dto.CustomerDto">
+		<![CDATA[ 
+			SELECT
+				customer_idx, customer_email, customer_id, customer_pw, customer_name, customer_nick_name, customer_address, customer_phone, customer_level
+			FROM
+				customers
+			WHERE
+				customer_id = #{customerId}
+		]]>
+	</select>
+	
 	<select id="selectCustomerDetail" parameterType="String" resultType="com.bitc.dto.CustomerDto">
 		<![CDATA[ 
 			SELECT

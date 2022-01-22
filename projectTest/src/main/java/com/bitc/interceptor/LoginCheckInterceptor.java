@@ -21,7 +21,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 			System.out.print("비로그인 상태 : ");
 			System.out.println((String)session.getAttribute("customerId"));
 			
-			response.sendRedirect("/login/loginfail");
+			response.sendRedirect("/login/somethingwrong");
 			return false;
 		}
 		else {

@@ -22,7 +22,10 @@ public interface CustomerMapper {
 	
 	// 로그인 정보 확인
 	public int selectCustomerInfoYn(@Param("customerId") String customerId, @Param("customerPw") String customerPw) throws Exception;
-
+	
+	// 고객정보 가져오기
+	public CustomerDto bringCustomerInfo(String customerId) throws Exception;
+		
 	// 회원 정보 수정 페이지
 	public CustomerDto selectCustomerDetail(String customerId) throws Exception;	
 	

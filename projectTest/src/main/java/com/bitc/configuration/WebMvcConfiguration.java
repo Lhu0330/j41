@@ -40,6 +40,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 		.addPathPatterns("/login/**")
 		.excludePathPatterns("/login/loginfail")
 		.excludePathPatterns("/login/login")
-		.excludePathPatterns("/login/check");
+		.excludePathPatterns("/login/check")
+		.excludePathPatterns("/login/somethingwrong");
 	}
 }

@@ -41,6 +41,12 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.selectCustomerInfoYn(customerId, customerPw);
 	}
 
+	// 고객정보 가져오기
+	@Override
+	public CustomerDto bringCustomerInfo(String customerId) throws Exception {
+		return customerMapper.bringCustomerInfo(customerId);
+	}
+		
 	// 회원 정보 수정 페이지
 	@Override
 	public CustomerDto selectCustomerDetail(String customerId) throws Exception {

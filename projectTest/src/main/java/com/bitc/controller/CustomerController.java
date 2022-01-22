@@ -72,16 +72,17 @@ public class CustomerController {
 		return "/login";
 	}
 	
-	// 로그인 정보 확인
+	// 로그인 정보 확인 + 고객정보 가져오기
 	@RequestMapping(value="/login/check", method=RequestMethod.POST)
 	public String loginCheck(CustomerDto customer, HttpServletRequest request) throws Exception {
 		int count = customerService.selectCustomerInfoYn(customer.getCustomerId(), customer.getCustomerPw());
 		
 		if (count == 1) {
 			HttpSession session = request.getSession();
+			customer = customerService.bringCustomerInfo(customer.getCustomerId());
+			
 			session.setAttribute("customerId", customer.getCustomerId());
 			session.setAttribute("customerIdx", customer.getCustomerIdx());
-			session.setAttribute("adminStore", customer.getAdminStore());
 			session.setMaxInactiveInterval(30);
 			return "redirect:/login/mypage";
 		} else {
@@ -142,6 +143,12 @@ public class CustomerController {
 	public String deleteAccount(@PathVariable("customerId") String customerId) throws Exception {
 		customerService.deleteAccount(customerId);
 		return "/afterDeleteAccount";
+	}
+	
+	// 잘못된 접근 페이지
+	@RequestMapping(value="/login/somethingwrong", method=RequestMethod.GET)
+	public String somethingWrong() throws Exception {
+		return "/somethingWrong";
 	}
 	
 	// 리뷰 작성 페이지 (우선 순위 아님)
