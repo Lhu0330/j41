@@ -48,7 +48,7 @@
 						<tbody>
 							<tr th:if="${#lists.size(orders)} > 0" th:each="list : ${orders}">
 								<td>
-									<a href="###" th:attrappend="href=${list.orderIdx}" th:text="${list.orderIdx}" class="text-decoration-none"></a>
+									<a href="/login/personalorderdetail/" th:attrappend="href=${list.orderIdx}" th:text="${list.orderIdx}" class="text-decoration-none"></a>
 								</td>
 								<td th:text="${list.orderDate}"></td>
 								<td th:text="${list.dispatchedYn}"></td>

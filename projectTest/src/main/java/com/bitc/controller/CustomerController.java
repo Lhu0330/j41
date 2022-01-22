@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bitc.dto.CustomerDto;
+import com.bitc.dto.OrderDetailDto;
 import com.bitc.dto.OrdersDto;
 import com.bitc.service.CustomerService;
 
@@ -102,7 +103,13 @@ public class CustomerController {
 	}
 	
 	// 주문 자세히 보기
-	
+	@RequestMapping(value="/login/personalorderdetail/{orderIdx}", method=RequestMethod.GET)
+	public ModelAndView openPersonalOrderDetail(@PathVariable("orderIdx") int orderIdx) throws Exception {
+		ModelAndView mv = new ModelAndView("/personalOrderDetail");
+		List<OrderDetailDto> orderDetail = customerService.selectPODList(orderIdx);
+		mv.addObject("orderDetail", orderDetail);
+		return mv;
+	}
 	
 	
 	// 로그인 실패

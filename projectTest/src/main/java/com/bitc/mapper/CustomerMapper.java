@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.bitc.dto.CustomerDto;
+import com.bitc.dto.OrderDetailDto;
 import com.bitc.dto.OrdersDto;
 
 @Mapper
@@ -37,5 +38,8 @@ public interface CustomerMapper {
 
 	// 주문 내역 보기
 	public List<OrdersDto> selectOrderList(int customerIdx) throws Exception;
+	
+	// 주문 자세히 보기
+	public List<OrderDetailDto> selectPODList(int orderIdx) throws Exception;
 
 }

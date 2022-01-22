@@ -3,6 +3,7 @@ package com.bitc.service;
 import java.util.List;
 
 import com.bitc.dto.CustomerDto;
+import com.bitc.dto.OrderDetailDto;
 import com.bitc.dto.OrdersDto;
 
 public interface CustomerService {
@@ -34,4 +35,6 @@ public interface CustomerService {
 	// 주문 내역 보기
 	public List<OrdersDto> selectOrderList(int customerIdx) throws Exception;
 
+	// 주문 자세히 보기
+	public List<OrderDetailDto> selectPODList(int orderIdx) throws Exception;
 }

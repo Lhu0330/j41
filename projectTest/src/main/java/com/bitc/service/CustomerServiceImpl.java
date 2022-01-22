@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitc.dto.CustomerDto;
+import com.bitc.dto.OrderDetailDto;
 import com.bitc.dto.OrdersDto;
 import com.bitc.mapper.CustomerMapper;
 
@@ -69,5 +70,11 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public List<OrdersDto> selectOrderList(int customerIdx) throws Exception {
 		return customerMapper.selectOrderList(customerIdx);
+	}
+	
+	// 주문 자세히 보기
+	@Override
+	public List<OrderDetailDto> selectPODList(int orderIdx) throws Exception {
+		return customerMapper.selectPODList(orderIdx);
 	}
 }
