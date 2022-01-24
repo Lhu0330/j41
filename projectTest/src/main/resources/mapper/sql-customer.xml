@@ -121,8 +121,17 @@
 				customer_id = #{customerId}
 			AND
 				deleted_yn = 'N'
-
 		]]>
 	</select>
 	
+	<select id="selectPODList" resultType="com.bitc.dto.OrderDetailDto">
+		<![CDATA[ 
+			SELECT
+				order_detail_idx, order_idx, product_idx, order_cnt
+			FROM
+				orders_detail
+			WHERE
+				order_idx = #{orderIdx};
+		]]>
+	</select>
 </mapper>
