@@ -1,5 +1,8 @@
 package com.bitc.service;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.bitc.dto.AdminMemberDto;
+import com.bitc.dto.JDto;
 import com.bitc.mapper.AdminMemberMapper;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -51,6 +55,12 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 		adminMemberMapper.updateAdminMember(adnot);
 	}
 	
+	@Override
+	public List<JDto> selectMemberList(@Param("customerIdx") int customerIdx,@Param("ads") String ads) throws Exception {
+		List<JDto> admh = adminMemberMapper.selectMemberList(customerIdx, ads);
+		
+		return admh;
+	}
 	
 }
 
