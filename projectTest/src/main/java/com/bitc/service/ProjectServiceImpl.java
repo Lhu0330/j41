@@ -51,7 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
 		// 카테고리별 상품화면 
 		@Override
 		public Page<ProjectDto> selectMenuList(int pageNum, int productCategoryIdx) throws Exception {
-			PageHelper.startPage(pageNum, 2);
+			PageHelper.startPage(pageNum, 4);
 			return projectMapper.selectMenuList(productCategoryIdx);
 		}
 
