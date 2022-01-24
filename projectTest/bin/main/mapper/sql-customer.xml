@@ -111,7 +111,6 @@
 		]]>
 	</select>
 	
-<<<<<<< HEAD
 	<select id="memberInfo" resultType="com.bitc.dto.CustomerDto">
 		<![CDATA[
 			SELECT
@@ -122,16 +121,7 @@
 				customer_id = #{customerId}
 			AND
 				deleted_yn = 'N'
-=======
-	<select id="selectPODList" resultType="com.bitc.dto.OrderDetailDto">
-		<![CDATA[ 
-			SELECT
-				order_detail_idx, order_idx, product_idx, order_cnt
-			FROM
-				orders_detail
-			WHERE
-				order_idx = #{orderIdx};
->>>>>>> ae5bec8d0a4dbe78e4f9040358989c771e750def
+
 		]]>
 	</select>
 	
