@@ -3,7 +3,6 @@ package com.bitc.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.bitc.dto.ProductFileDto;
 import com.bitc.dto.ProjectDto;
@@ -23,13 +22,13 @@ public interface ProjectMapper {
 	List<ProjectDto> selectBoardFileList(int productIdx) throws Exception;	
 	
 	
-	ProductFileDto selectBoardFileInfo(@Param("fileIdx") int fileIdx, @Param("boardIdx") int boardIdx) throws Exception;
+	ProductFileDto selectBoardFileInfo(int fileIdx, int boardIdx) throws Exception;
 
 
 	// 메뉴별 상품 리스트
 	Page<ProjectDto> selectMenuList( int productCategoryIdx) throws Exception;
 
-	//상품상세화면
+	// 상품 상세화면
 	public ProjectDto selectBoardDetail(int productIdx) throws Exception;
 	
 	

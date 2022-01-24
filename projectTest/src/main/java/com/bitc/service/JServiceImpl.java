@@ -71,5 +71,10 @@ public class JServiceImpl implements JService {
 	public void updateSuccess(JDto success) throws Exception {
 		jMapper.updateSuccess(success);
 	}
+	
+	@Override
+	public void addCart(int productIdx, int cartQty) throws Exception {
+		jMapper.addCart(productIdx, cartQty);
+	}
 
 }

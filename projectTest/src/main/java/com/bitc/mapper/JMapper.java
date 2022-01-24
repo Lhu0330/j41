@@ -30,5 +30,7 @@ public interface JMapper {
 	void decreaseCart(int productIdx) throws Exception;
 	
 	void updateSuccess(JDto success) throws Exception;
+	
+	public void addCart(int productIdx, int cartQty) throws Exception;
 
 }

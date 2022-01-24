@@ -12,6 +12,7 @@ public class ProjectDto {
 	private int productCategoryIdx;
 	private String ProductName;
 	private String ProductPrice;
+	private String deliveryCost;
 	private String productCategoryName;
 	
 	private int fileIdx;

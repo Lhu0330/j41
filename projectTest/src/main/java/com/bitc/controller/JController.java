@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -106,6 +107,15 @@ public class JController {
 		List<JDto> successList = jService.selectSuccessList();
 		mv.addObject("successList", successList);
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/jr41/addcart", method = RequestMethod.POST)
+	public String jangbaguni(@RequestParam("productIdx") int productIdx, @RequestParam("cartQty") int cartQty) throws Exception {
+		
+		jService.addCart(productIdx, cartQty);
+		return "redirect:/cart.do";
+	
 	}
 
 }

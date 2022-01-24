@@ -28,4 +28,6 @@ public interface JService {
 	
 	void updateSuccess(JDto success) throws Exception;
 	
+	void addCart(int productIdx, int cartQty) throws Exception;
+	
 }
