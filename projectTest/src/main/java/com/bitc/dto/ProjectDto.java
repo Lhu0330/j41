@@ -10,8 +10,8 @@ public class ProjectDto {
 	
 	private int productIdx;
 	private int productCategoryIdx;
-	private String ProductName;
-	private String ProductPrice;
+	private String productName;
+	private String productPrice;
 	private String productCategoryName;
 	
 	private int fileIdx;
