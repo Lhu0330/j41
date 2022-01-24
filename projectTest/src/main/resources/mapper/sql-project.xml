@@ -5,6 +5,7 @@
 
 <mapper namespace="com.bitc.mapper.ProjectMapper">
 
+<!-- 메인 화면 -->
 
 	<select id="selectJrList" resultType="com.bitc.dto.ProjectDto">
 		
@@ -19,44 +20,59 @@
 		]]>
 	</select>
 	
-
-	<select id="selectList" resultType="com.bitc.dto.ProjectDto">
-		
-		<![CDATA[ 
+	<!-- 메뉴별 화면 -->
+	<select id="selectMenuList" parameterType="int" resultType="com.bitc.dto.ProjectDto">
+		<![CDATA[
 			SELECT
-				product_idx, product_name, product_category_idx, product_price
+				*
 			FROM
-				product		
-			
+				product as a
+			JOIN
+   				product_category as b
+   			ON
+  				 a.product_category_idx = b.product_category_idx
+  			and 
+  			  a.product_category_idx = #{productCategoryIdx}
+		
 		]]>
+		
 	</select>
 
+
+	
+<!-- 상세화면 -->
 		<select id="selectBoardDetail" parameterType="int" resultType="com.bitc.dto.ProjectDto">
 		<![CDATA[
 			SELECT
-				product_idx, product_name, product_price
+				*
 			FROM
-				t_board
-			WHERE
-				 product_category_idx = #{productCategoryIdx}
+				product as a
+			JOIN
+   				product_category as b
+   			ON
+  				 a.product_category_idx = b.product_category_idx
+  			AND 	
+  				a.product_idx = #{productIdx}
+			
 		]]>
+		
 	</select>
 	
-		<select id="selectBoardFileList" parameterType="int" resultType="com.bitc.dto.ProductFileDto">
+		<select id="selectBoardFileList" parameterType="int" resultType="com.bitc.dto.ProjectDto">
 		<![CDATA[
 			SELECT
-				file_idx, board_idx, original_file_name, stored_file_path,
+				file_idx, product_idx, original_file_name, stored_file_path,
 				FORMAT(ROUND(file_size / 1024), 0) AS file_size
 			FROM
 				product_file
 			WHERE
-				board_idx = #{boradIdx}
+				product_idx = #{productIdx}
 
 		]]>
 	</select>
 	
 	<!-- 지정한 글번호에 첨부된 파일 목록 불러오기 -->
-	<select id="selectBoardFileInfo" parameterType="map" resultType="com.bitc.dto.ProductFileDto">
+	<select id="selectBoardFileInfo" parameterType="map" resultType="com.bitc.dto.ProjectDto">
 		<![CDATA[
 			SELECT
 				original_file_name, stored_file_path, file_size
