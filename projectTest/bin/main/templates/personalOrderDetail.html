@@ -32,13 +32,21 @@
 						<h3 class="text-center">주문 상세 내역</h3>
 					</div>
 					<!-- 주문 상세 내역 부분 -->
-					<table class="table table-hover">
+					<table class="table table-hover text-center">
+						<colgroup>
+							<col width="15%" />
+							<col width="15%" />
+							<col width="15%" />
+							<col width="40%" />
+							<col width="15%" />
+						</colgroup>
 						<thead>
 							<tr>
 								<th>주문번호</th>
 								<th>주문상세번호</th>
-								<!-- <th colspan="2">상품번호</th> -->
-								<th>상품번호</th>
+								<!-- <th colspan="2">상품이미지 상품명</th> -->
+								<th>품번</th>
+								<th>상품명</th>
 								<th>수량</th>
 							</tr>
 						</thead>
@@ -50,6 +58,13 @@
 								</td> -->
 								<td th:text="${list.orderDetailIdx}"></td>
 								<td th:text="${list.productIdx}"></td>
+								<td>
+									<a href="/jr41/list/detail/" th:attrappend="href=${list.productIdx}" th:text="${list.productName}" class="text-decoration-none"></a>
+								</td>
+								
+								<!-- <td th:text="${list.productName}"></td> -->
+								
+								
 								<td th:text="${list.orderCnt}"></td>
 							</tr>
 							<tr th:unless="${#lists.size(orderDetail)} > 0">

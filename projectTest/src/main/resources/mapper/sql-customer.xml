@@ -127,8 +127,10 @@
 	<select id="selectPODList" resultType="com.bitc.dto.OrderDetailDto">
 		<![CDATA[ 
 			SELECT
-				order_detail_idx, order_idx, product_idx, order_cnt
+				order_detail_idx, order_idx, product_idx, order_cnt, product_name
 			FROM
+				product
+			natural join
 				orders_detail
 			WHERE
 				order_idx = #{orderIdx};
