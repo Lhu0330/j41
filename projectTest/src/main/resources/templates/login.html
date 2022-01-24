@@ -26,8 +26,13 @@
 </head>
 
 <body>
-	<header th:include="layout/header :: header">
-	</header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
+<!-- 	<header th:if="${session.customerId != null}"> -->
+<!-- 		<div th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></div> -->
+<!-- 	</header> -->
+<!-- 	<header th:unless="${session.customerId != null}"> -->
+<!-- 		<div th:replace="layout/header :: headSub('zzzz')"></div> -->
+<!-- 	</header> -->
 	
 	<main>
 		<div class="container">

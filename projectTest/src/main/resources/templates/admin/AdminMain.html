@@ -9,7 +9,9 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-$(document).ready(function() {
+
+$(document).ready(function() {	
+	
 	$("#btn-adnot").on("click", function() {
 		location.href="/jr41/adminNotice";
 	});
@@ -25,13 +27,13 @@ $(document).ready(function() {
 	$("#btn-admem").on("click", function() {
 		location.href="/jr41/adminMember";
 	});
+
 });
 </script>
 
 </head>
 <body>
-	<header th:include="layout/header :: header">
-	</header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 	
 	<main class="container border my-5">
 		<div class="row my-5 mx-auto text-center">

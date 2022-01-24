@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>주소록</title>
+<title>장바구니</title>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -13,6 +13,52 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	$(document).ready(function() {
+		$(".btn-increase").on("click", function() {
+			var cartProductIdx = $(this).children("span").text();
+
+			$.ajax({
+
+				type : "get",
+				url : "/cart/cartItemIncrease.do",
+				data : {
+					productIdx : cartProductIdx
+				},
+				success : function(data) {
+					if (data.result == "success") {
+						location.reload();
+					} else {
+						alert("변경 오류!");
+					}
+				},
+				error : function() {
+					alert("변경 오류!");
+				}
+
+			});
+		});
+
+		$(".btn-decrease").on("click", function() {
+			var cartProductIdx = $(this).children("span").text();
+
+			$.ajax({
+				url : "/cart/cartItemDecrease.do",
+				type : "get",
+				data : {
+					productIdx : cartProductIdx
+				},
+				success : function(data) {
+					if (data.result == "success") {
+						location.reload();
+					} else {
+						alert("변경 오류!.");
+					}
+				},
+				error : function() {
+					alert("변경 오류!");
+				}
+			});
+		});
+
 		$(".btn-delete").on("click", function() {
 			var cartProductIdx = $(this).children("span").text();
 
@@ -26,20 +72,58 @@
 					if (data.result == "success") {
 						location.reload();
 					} else {
-						alert("삭제 중 오류가 발생했습니다.");
+						alert("삭제 오류가 발생했습니다.");
 					}
 				},
 				error : function() {
-					alert("삭제 중 오류가 발생했습니다.");
+					alert("삭제 오류가 발생했습니다.");
 				}
 			});
 		});
+
+		//      체크박스 부분 ajax로 처리하려면 이 구문 사용 (지금 프로젝트에서는 맞지 않음)
+
+		// 		$("#btn-submit").on("click", function() {
+
+		// 			var chkBox = $("input[name=flexCheckChecked]:checked");
+		// 			var result = [];
+
+		// 			for (var i = 0; i < chkBox.length; i++) {
+		// 				result.push($(chkBox[i]).val());
+		// 			}
+
+		// 			$.ajax({
+		// 				url: "/cart/order.do",
+		// 				type: "get",
+		// 				data: {productIdx: result},
+		// 				success: function(data) {
+		// 					alert(data);
+		// 				},
+		// 				error: function() {
+		// 					alert("오류");
+		// 				}
+		// 			});
+		// 		});
+
+		var btnList = document.querySelector("#btn-submit");
+		btnList.addEventListener("click", function() {
+			var frm = document.frm;
+			if ($('.chkbox:checked').length == 0) {
+				alert("구매하려는 상품이 없습니다.");
+				location.reload();
+			} else {
+				frm.method = "get";
+				frm.action = "/cart/order.do";
+				frm.submit();
+			}
+		});
+
 	});
 </script>
 
 </head>
 <body>
-	<header th:include="layout/header :: header"> </header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 
 	<main class="container mt-5">
 		<div class="container mt-5 px-1">
@@ -50,61 +134,78 @@
 		<br>
 		<div class="row">
 			<div class="col-sm">
-				<table class="table table-hover table-striped">
-					<colgroup>
-						<col width="5%">
-						<col width="10%">
-						<col width="35%">
-						<col width="10%">
-						<col width="15%">
-						<col width="15%">
-						<col width="10%">
-					</colgroup>
-					<thead>
-						<tr>
-							<th>선택</th>
-							<th>번호</th>
-							<th>상품명</th>
-							<th>수량</th>
-							<th>가격</th>
-							<th>배송비</th>
-							<th>&nbsp;</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:if="${#lists.size(cartList)} > 0"
-							th:each="cart : ${cartList}">
-							<td>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""
-										id="flexCheckChecked" checked> <label
-										class="form-check-label" for="flexCheckChecked"> </label>
-								</div>
-							</td>
-							<td th:text="${cart.productIdx}"></td>
-							<td th:text="${cart.productName}"></td>
-							<td th:text="${cart.cartQty}"></td>
-							<td th:text="${cart.productPrice}"></td>
-							<td th:text="${cart.deliveryCost}"></td>
-							<td>
-								<button type="button"
-									class="btn btn-outline-danger btn-sm btn-delete">
-									<span class="d-none" th:text="${cart.productIdx}"></span>삭제
-								</button>
-							</td>
-						</tr>
-						<tr th:unless="${#lists.size(cartList)} > 0">
-							<td colspan="7">장바구니에 담긴 상품이 없습니다</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="clearfix col text-center">
-					<button
-						class="btn btn-outline-primary float-middle btn-lg btn-block">쇼핑
-						계속하기</button>
-					<a href="/cart/order.do"
-						class="btn btn-primary float-middle btn-lg btn-block">모두 구매</a>
-				</div>
+				<form name="frm" method="get">
+					<table class="table table-hover table-striped">
+						<colgroup>
+							<col width="5%">
+							<col width="10%">
+							<col width="35%">
+							<col width="5%">
+							<col width="10%">
+							<col width="10%">
+							<col width="10%">
+							<col width="15%">
+						</colgroup>
+						<thead>
+							<tr>
+								<th>V</th>
+								<th>상품번호</th>
+								<th>상품명</th>
+								<th>수량</th>
+								<th>&nbsp;</th>
+								<th>가격</th>
+								<th>배송비</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${#lists.size(cartList)} > 0"
+								th:each="cart : ${cartList}">
+								<td>
+									<div class="form-check">
+										<input class="form-check-input chkbox" type="checkbox"
+											th:value="${cart.productIdx}" name="flexCheckChecked" checked>
+										<label class="form-check-label" for="flexCheckChecked">
+										</label>
+									</div>
+								</td>
+								<td th:text="${cart.productIdx}"></td>
+								<td th:text="${cart.productName}"></td>
+								<td th:text="${cart.cartQty}"></td>
+								<td>
+									<button
+										class="btn btn-outline-info float-left btn-sm btn-block btn-increase"
+										id="btn-increase">
+										<span class="d-none" th:text="${cart.productIdx}"></span>+
+									</button>
+									<button
+										class="btn btn-outline-warning float-left btn-sm btn-block btn-decrease"
+										id="btn-decrease">
+										<span class="d-none" th:text="${cart.productIdx}"></span>-
+									</button>
+								</td>
+								<td th:text="${cart.productPrice}"></td>
+								<td th:text="${cart.deliveryCost}"></td>
+								<td>
+									<button type="button"
+										class="btn btn-outline-danger btn-sm btn-delete">
+										<span class="d-none" th:text="${cart.productIdx}"></span>삭제
+									</button>
+								</td>
+							</tr>
+							<tr th:unless="${#lists.size(cartList)} > 0">
+								<td colspan="8">장바구니에 담긴 상품이 없습니다</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="clearfix col text-center">
+						<button
+							class="btn btn-outline-primary float-middle btn-lg btn-block">쇼핑
+							계속하기</button>
+						<button class="btn btn-primary float-middle btn-lg btn-block"
+							id="btn-submit">구매하기</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</main>
@@ -112,15 +213,4 @@
 	<footer th:replace="layout/footer :: footer"></footer>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 

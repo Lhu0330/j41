@@ -42,4 +42,6 @@ public interface CustomerMapper {
 	// 주문 자세히 보기
 	public List<OrderDetailDto> selectPODList(int orderIdx) throws Exception;
 
+	public CustomerDto memberInfo(String customerId) throws Exception;
+
 }

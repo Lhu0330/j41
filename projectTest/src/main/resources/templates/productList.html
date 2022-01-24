@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<header th:include="layout/header :: header"></header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 
        <hr>
      <div class="bg-light py-5">

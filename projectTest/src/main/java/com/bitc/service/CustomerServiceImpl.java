@@ -72,9 +72,16 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.selectOrderList(customerIdx);
 	}
 	
+
+	@Override
+	public CustomerDto memberInfo(String customerId) throws Exception {
+		return customerMapper.memberInfo(customerId);
+	}
+
 	// 주문 자세히 보기
 	@Override
 	public List<OrderDetailDto> selectPODList(int orderIdx) throws Exception {
 		return customerMapper.selectPODList(orderIdx);
+
 	}
 }
