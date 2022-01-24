@@ -31,4 +31,6 @@ public interface CustomerService {
 	// 주문 내역 보기
 	public List<OrdersDto> selectOrderList(int customerIdx) throws Exception;
 
+	public CustomerDto memberInfo(String customerId) throws Exception;
+
 }

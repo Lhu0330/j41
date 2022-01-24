@@ -73,11 +73,20 @@ public class CustomerController {
 		
 		if (count == 1) {
 			HttpSession session = request.getSession();
+			
+			customer = customerService.memberInfo(customer.getCustomerId());
+			
 			session.setAttribute("customerId", customer.getCustomerId());
 			session.setAttribute("customerIdx", customer.getCustomerIdx());
-			session.setAttribute("adminStore", customer.getAdminStore());
-			session.setMaxInactiveInterval(30);
-			return "redirect:/login/mypage";
+			session.setAttribute("customerName", customer.getCustomerName());
+			session.setAttribute("customerAdminStore", customer.getAdminStore());
+			session.setMaxInactiveInterval(300);
+			if (customer.getAdminStore() != null)
+				return "redirect:/jr41/adminMain";
+			else 
+				return "redirect:/login/mypage";
+			
+				
 		} else {
 			return "redirect:/login/loginfail";
 		}
@@ -143,4 +152,12 @@ public class CustomerController {
 	// 리뷰 추가 (우선 순위 아님)
 	
 	// 리뷰 파일..? (우선 순위 아님)
+	
+	// 회원정보 참조용 ajax통신
+//	@RequestMapping(value="/api/memberinfo{customerId}", method=RequestMethod.POST)
+//	@ResponseBody
+//	public CustomerDto memberinfo(@PathVariable("customerId")String customerId) throws Exception {
+//		CustomerDto mbi = customerService.memberinfo(customerId);
+//		return mbi;
+//	}
 }

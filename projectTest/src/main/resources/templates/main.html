@@ -22,7 +22,7 @@
   </style>
 </head> 
 <body>
-	 <footer th:replace="layout/header :: header"></footer>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 	<!-- <header th:include="layout/header :: header(${jrList[0].productCategoryIdx},${jrList[1].productCategoryIdx}, ${jrList[2].productCategoryIdx},${jrList[3].productCategoryIdx},
 	   ${jrList[4].productCategoryIdx}, ${jrList[5].productCategoryIdx},'7')"></header> -->
    <main class="container">

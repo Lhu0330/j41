@@ -51,7 +51,7 @@
 </head>
 
 <body>
-	<header th:include="layout/header :: header"></header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 
     <div class="bg-light py-5">
       <div class="container">

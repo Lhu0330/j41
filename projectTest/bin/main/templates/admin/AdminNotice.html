@@ -18,8 +18,7 @@ $(document).ready(function() {
 
 </head>
 <body>
-	<header th:include="layout/header :: header">
-	</header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 	
 	<main class="container my-5">
 		<div class="row mt-5 mx-auto text-center">

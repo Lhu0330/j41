@@ -64,4 +64,9 @@ public class CustomerServiceImpl implements CustomerService {
 	public List<OrdersDto> selectOrderList(int customerIdx) throws Exception {
 		return customerMapper.selectOrderList(customerIdx);
 	}
+	
+	@Override
+	public CustomerDto memberInfo(String customerId) throws Exception {
+		return customerMapper.memberInfo(customerId);
+	}
 }

@@ -14,20 +14,19 @@
 	$(document).ready(function() {
 		// 메인 페이지로 이동
 		$("#btn-home").on("click", function() {
-			location.href="#####"; // 수정 필요!!!!!
+			location.href="/jr41"; 
 		});
 		
 		// 5초 후 자동으로 이동
 		setTimeout(function() {
-			location.href="/####"; // 수정 필요!!!!!
+			location.href="/jr41"; 
 		}, 5000);
 	});
 </script>
 
 </head>
 <body>
-	<header th:include="layout/header :: header">
-	</header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 	
 	<main>
 		<div class="container">
