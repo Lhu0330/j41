@@ -20,7 +20,7 @@
 				p.product_idx DESC
 		]]>
 	</select>
-	
+
 	<select id="selectPayList" resultType="com.bitc.dto.JDto">
 		<![CDATA[
 			SELECT
@@ -61,7 +61,7 @@
 			
 		]]>
 	</select>
-	
+
 	<select id="selectCostCalculate" resultType="com.bitc.dto.JDto">
 		<![CDATA[
 			SELECT
@@ -91,7 +91,7 @@
 				product_idx = #{productIdx}
 		]]>
 	</update>
-	
+
 	<update id="checkedCart" parameterType="com.bitc.dto.JDto">
 		<![CDATA[
 			UPDATE
@@ -102,7 +102,7 @@
 				product_idx = #{productIdx}
 		]]>
 	</update>
-	
+
 	<update id="checkedNotCart" parameterType="com.bitc.dto.JDto">
 		<![CDATA[
 			UPDATE
@@ -124,7 +124,7 @@
 				cart_qty < 999
 		]]>
 	</update>
-	
+
 	<update id="decreaseCart" parameterType="int">
 		<![CDATA[
 			UPDATE
@@ -150,5 +150,18 @@
 			    checked_yn = 'Y'
 		]]>
 	</update>
-	<!--product_stock_cnt = product_stock_cnt - cart_qty, (SET 부분 : 주문 완료 시 주문량만큼 재고량을 감소시키는 구문)-->
+	<!--product_stock_cnt = product_stock_cnt - cart_qty, (SET 부분 : 주문 완료 시 
+		주문량만큼 재고량을 감소시키는 구문) -->
+		
+		<update id="addCart" parameterType="com.bitc.dto.JDto">
+		<![CDATA[
+			UPDATE
+				orders_detail
+			SET
+				cart_qty = #{cartQty}
+			WHERE
+				product_idx = #{productIdx}
+		]]>
+	</update>
+		
 </mapper>

@@ -47,7 +47,7 @@
 
 </head>
 <body>
-	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
+	<header th:include="layout/header :: header"> </header>
 
 	<main class="container mt-5">
 		<div class="container mt-5 px-1">

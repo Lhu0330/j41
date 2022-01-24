@@ -5,7 +5,8 @@
 
 <mapper namespace="com.bitc.mapper.ProjectMapper">
 
-<!-- 메인 화면 -->
+
+	<!-- 메인 화면 -->
 
 	<select id="selectJrList" resultType="com.bitc.dto.ProjectDto">
 		
@@ -19,7 +20,7 @@
 				product_category_idx
 		]]>
 	</select>
-	
+
 	<!-- 메뉴별 화면 -->
 	<select id="selectMenuList" parameterType="int" resultType="com.bitc.dto.ProjectDto">
 		
@@ -42,13 +43,14 @@
 		
 		
 		]]>
-		
+
 	</select>
 
 
-	
-<!-- 상세화면 -->
-		<select id="selectBoardDetail" parameterType="int" resultType="com.bitc.dto.ProjectDto">
+
+	<!-- 상세화면 -->
+	<select id="selectBoardDetail" parameterType="int"
+		resultType="com.bitc.dto.ProjectDto">
 		<![CDATA[
 			SELECT
 				*
@@ -62,10 +64,11 @@
   				a.product_idx = #{productIdx}
 			
 		]]>
-		
+
 	</select>
-	
-		<select id="selectBoardFileList" parameterType="int" resultType="com.bitc.dto.ProjectDto">
+
+	<select id="selectBoardFileList" parameterType="int"
+		resultType="com.bitc.dto.ProjectDto">
 		<![CDATA[
 			SELECT
 				file_idx, product_idx, original_file_name, stored_file_path,
@@ -77,9 +80,10 @@
 
 		]]>
 	</select>
-	
+
 	<!-- 지정한 글번호에 첨부된 파일 목록 불러오기 -->
-	<select id="selectBoardFileInfo" parameterType="map" resultType="com.bitc.dto.ProjectDto">
+	<select id="selectBoardFileInfo" parameterType="map"
+		resultType="com.bitc.dto.ProjectDto">
 		<![CDATA[
 			SELECT
 				original_file_name, stored_file_path, file_size
@@ -90,5 +94,6 @@
 			
 		]]>
 	</select>
+
 
 </mapper>
