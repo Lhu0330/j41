@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>주소록</title>
+<title>구매/결제</title>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -68,7 +68,7 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th>번호</th>
+							<th>상품번호</th>
 							<th>상품명</th>
 							<th>수량</th>
 							<th>가격</th>
@@ -76,15 +76,15 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${#lists.size(cartList)} > 0"
-							th:each="cart : ${cartList}">
-							<td th:text="${cart.productIdx}"></td>
-							<td th:text="${cart.productName}"></td>
-							<td th:text="${cart.cartQty}"></td>
-							<td th:text="${cart.productPrice}"></td>
-							<td th:text="${cart.deliveryCost}"></td>
+						<tr th:if="${#lists.size(PayList)} > 0"
+							th:each="pay : ${PayList}">
+							<td th:text="${pay.productIdx}"></td>
+							<td th:text="${pay.productName}"></td>
+							<td th:text="${pay.cartQty}"></td>
+							<td th:text="${pay.productPrice}"></td>
+							<td th:text="${pay.deliveryCost}"></td>
 						</tr>
-						<tr th:unless="${#lists.size(cartList)} > 0">
+						<tr th:unless="${#lists.size(PayList)} > 0">
 							<td colspan="5">장바구니에 담긴 상품이 없습니다</td>
 						</tr>
 					</tbody>
@@ -124,7 +124,7 @@
 							for="user-addr2">상세주소를 입력하세요</label>
 					</div>
 					<div class="row">
-						<div class="card my-3 col-lg-6" style="width: 15rem;">
+						<div class="card my-3 col-6 mx-auto" style="width: 15rem;">
 							<div class="card-body">
 								상품 금액
 								<input type="text" class="form-control" id="bs-cost"
@@ -139,7 +139,7 @@
 									name="finalCost" th:value="${cartsum.finalCost}" readonly>
 							</div>
 						</div>
-						<div class="mx-auto my-3 col-lg-6">
+						<div class="mx-auto my-3 col-6">
 							<div class="form-check">
 								<input class="form-check-input" type="radio"
 									name="flexRadioDefault" id="flexRadioDefault1" checked>

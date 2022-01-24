@@ -80,7 +80,6 @@ public class CustomerController {
 		
 		if (count == 1) {
 			HttpSession session = request.getSession();
-<<<<<<< HEAD
 			
 			customer = customerService.memberInfo(customer.getCustomerId());
 			
@@ -93,16 +92,7 @@ public class CustomerController {
 				return "redirect:/jr41/adminMain";
 			else 
 				return "redirect:/login/mypage";
-			
-				
-=======
-			customer = customerService.bringCustomerInfo(customer.getCustomerId());
-			
-			session.setAttribute("customerId", customer.getCustomerId());
-			session.setAttribute("customerIdx", customer.getCustomerIdx());
-			session.setMaxInactiveInterval(30);
-			return "redirect:/login/mypage";
->>>>>>> ae5bec8d0a4dbe78e4f9040358989c771e750def
+
 		} else {
 			return "redirect:/login/loginfail";
 		}
