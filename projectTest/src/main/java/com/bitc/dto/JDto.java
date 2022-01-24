@@ -16,5 +16,8 @@ public class JDto {
 	private int bsCost;
 	private int dsCost;
 	private int finalCost;
+	private int customerIdx;
+	private int adminStore;
+	
 
 }

@@ -5,9 +5,13 @@ import lombok.Data;
 @Data
 public class OrderDetailDto {
 
-	int orderDetailIdx;
-	int orderIdx;
-	int productIdx;
-	int orderCnt;
-	int orderSum;
+	private int orderDetailIdx;
+	private int orderIdx;
+	private int productIdx;
+	private int orderCnt;
+	private int orderSum;
+	
+	private String productName;
+	private int productPrice;
+	private int deliveryCost;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Account Deleted</title>
@@ -23,8 +23,7 @@
 </script>
 </head>
 <body>
-	<header th:include="layout/header :: header">
-	</header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 	
 	<main>
 		<div class="container">

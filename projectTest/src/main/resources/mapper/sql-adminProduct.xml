@@ -5,13 +5,13 @@
 	<select id="selectAdminProduct" resultType="com.bitc.dto.AdminProductDto">
 		<![CDATA[ 
 			SELECT
-				product_idx, product_category_idx, product_name, product_price, product_description, product_stock_cnt, admin_store, pc.product_category_name as product_category_name 
+				product_idx, p.product_category_idx, product_name, product_price, product_description, product_stock_cnt, admin_store, pc.product_category_name as product_category_name 
 			FROM
 				product p, product_category pc
 			Where
-				p.product_category_idx = pc.product_categroy_idx
+				p.product_category_idx = pc.product_category_idx
 			And	
-				deleted_yn="N"
+				deleted_yn='N'
 			ORDER BY
 				Product_idx DESC
 		]]>
@@ -22,7 +22,7 @@
 			INSERT INTO
 				product (product_category_idx, product_name, product_price, product_description, product_stock_cnt, admin_store)
 			VALUES
-				(#{productCategoryIdx}, #{productName}, #{productPrice}, #{productDescription}, #{productStockCnt}, 'eee')
+				(#{productCategoryIdx}, #{productName}, #{productPrice}, #{productDescription}, #{productStockCnt}, #{adminStore})
 		]]>
 	</insert>
 	
@@ -112,11 +112,11 @@
 	<select id="selectCategoryList" resultType="com.bitc.dto.CategoryProductDto">
 		<![CDATA[ 
 			SELECT
-				product_categroy_idx, product_category_name 
+				product_category_idx, product_category_name 
 			FROM
 				product_category
 			ORDER BY
-				product_categroy_idx
+				product_category_idx
 		]]>
 	</select>
 	

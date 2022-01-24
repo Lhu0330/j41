@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class CategoryProductDto {
 	
-	private int productCategroyIdx;
+	private int productCategoryIdx;
 	private String productCategoryName;
 	
 

@@ -22,7 +22,7 @@
 			FROM
 				customers
 			WHERE
-				customers_idx = #{MemberIdx}
+				customer_idx = #{customerIdx}
 			AND
 				deleted_yn = 'N'
 		]]>
@@ -52,6 +52,25 @@
 				deleted_yn = 'N'
 		]]>
 	</update>
+	
+	<select id="selectMemberList" parameterType= "map" resultType="com.bitc.dto.JDto">
+		<![CDATA[
+			SELECT 
+				* 
+			From 
+				orders_detail od, product p, orders o 
+			WHERE
+				od.product_idx = p.product_idx 
+			AND 
+				o.order_idx = od.order_idx
+			AND
+				p.admin_store = #{ads}
+			AND
+				o.customer_idx = #{customerIdx}
+			
+		]]>
+	</select>
+	
 </mapper>
 
 

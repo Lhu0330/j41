@@ -16,18 +16,18 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		
-		if ((String)session.getAttribute("CustomerId") == null) {
+		if ((String)session.getAttribute("customerId") == null) {
 			System.out.println("===== interceptor =====");
 			System.out.print("비로그인 상태 : ");
-			System.out.println((String)session.getAttribute("CustomerId"));
+			System.out.println((String)session.getAttribute("customerId"));
 			
-			response.sendRedirect("/login/loginFail");
+			response.sendRedirect("/login/somethingwrong");
 			return false;
 		}
 		else {
 			System.out.println("===== interceptor =====");
 			System.out.print("로그인 상태 : ");
-			System.out.println((String)session.getAttribute("userId"));
+			System.out.println((String)session.getAttribute("customerId"));
 			
 			session.setMaxInactiveInterval(30);
 			return true;

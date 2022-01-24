@@ -14,6 +14,7 @@ public class CustomerDto {
 	private String customerAddress;
 	private String customerPhone;
 	private int customerLevel;	
-	private String deletedYn;
 	private String adminStore;
+	private String deletedYn;
+
 }

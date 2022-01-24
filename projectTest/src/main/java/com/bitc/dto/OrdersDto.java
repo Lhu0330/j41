@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class OrdersDto {
 
-	int orderIdx;
-	int customerIdx;
-	String orderDate;
-	String dispatchedYn;
+	private int orderIdx;
+	private int customerIdx;
+	private String orderDate;
+	private String dispatchedYn;
 }

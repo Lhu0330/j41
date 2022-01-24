@@ -49,6 +49,17 @@
 		]]>
 	</select>
 	
+	<select id="bringCustomerInfo" resultType="com.bitc.dto.CustomerDto">
+		<![CDATA[ 
+			SELECT
+				customer_idx, customer_email, customer_id, customer_pw, customer_name, customer_nick_name, customer_address, customer_phone, customer_level
+			FROM
+				customers
+			WHERE
+				customer_id = #{customerId}
+		]]>
+	</select>
+	
 	<select id="selectCustomerDetail" parameterType="String" resultType="com.bitc.dto.CustomerDto">
 		<![CDATA[ 
 			SELECT
@@ -100,4 +111,29 @@
 		]]>
 	</select>
 	
+	<select id="memberInfo" resultType="com.bitc.dto.CustomerDto">
+		<![CDATA[
+			SELECT
+				*
+			FROM
+				customers
+			WHERE
+				customer_id = #{customerId}
+			AND
+				deleted_yn = 'N'
+		]]>
+	</select>
+	
+	<select id="selectPODList" resultType="com.bitc.dto.OrderDetailDto">
+		<![CDATA[ 
+			SELECT
+				order_detail_idx, order_idx, product_idx, order_cnt, product_name, product_price, delivery_cost
+			FROM
+				product
+			natural join
+				orders_detail
+			WHERE
+				order_idx = #{orderIdx};
+		]]>
+	</select>
 </mapper>

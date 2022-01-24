@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bitc.dto.CustomerDto;
+import com.bitc.dto.OrderDetailDto;
 import com.bitc.dto.OrdersDto;
 import com.bitc.service.CustomerService;
 
@@ -24,10 +25,10 @@ public class CustomerController {
 	public CustomerService customerService;
 	
 	// 테스트 페이지
-	@RequestMapping("/")
-	public String test() throws Exception {
-		return "/index";
-	}
+//	@RequestMapping("/")
+//	public String test() throws Exception {
+//		return "/index";
+//	}
 	
 	// 회원가입 페이지
 	@RequestMapping(value="/register", method=RequestMethod.GET)
@@ -72,18 +73,26 @@ public class CustomerController {
 		return "/login";
 	}
 	
-	// 로그인 정보 확인
+	// 로그인 정보 확인 + 고객정보 가져오기
 	@RequestMapping(value="/login/check", method=RequestMethod.POST)
 	public String loginCheck(CustomerDto customer, HttpServletRequest request) throws Exception {
 		int count = customerService.selectCustomerInfoYn(customer.getCustomerId(), customer.getCustomerPw());
 		
 		if (count == 1) {
 			HttpSession session = request.getSession();
+			
+			customer = customerService.memberInfo(customer.getCustomerId());
+			
 			session.setAttribute("customerId", customer.getCustomerId());
 			session.setAttribute("customerIdx", customer.getCustomerIdx());
-			session.setAttribute("adminStore", customer.getAdminStore());
-			session.setMaxInactiveInterval(30);
-			return "redirect:/login/mypage";
+			session.setAttribute("customerName", customer.getCustomerName());
+			session.setAttribute("customerAdminStore", customer.getAdminStore());
+			session.setMaxInactiveInterval(300);
+			if (customer.getAdminStore() != null)
+				return "redirect:/jr41/adminMain";
+			else 
+				return "redirect:/login/mypage";
+
 		} else {
 			return "redirect:/login/loginfail";
 		}
@@ -101,7 +110,13 @@ public class CustomerController {
 	}
 	
 	// 주문 자세히 보기
-	
+	@RequestMapping(value="/login/personalorderdetail/{orderIdx}", method=RequestMethod.GET)
+	public ModelAndView openPersonalOrderDetail(@PathVariable("orderIdx") int orderIdx) throws Exception {
+		ModelAndView mv = new ModelAndView("/personalOrderDetail");
+		List<OrderDetailDto> orderDetail = customerService.selectPODList(orderIdx);
+		mv.addObject("orderDetail", orderDetail);
+		return mv;
+	}
 	
 	
 	// 로그인 실패
@@ -144,9 +159,23 @@ public class CustomerController {
 		return "/afterDeleteAccount";
 	}
 	
+	// 잘못된 접근 페이지
+	@RequestMapping(value="/login/somethingwrong", method=RequestMethod.GET)
+	public String somethingWrong() throws Exception {
+		return "/somethingWrong";
+	}
+	
 	// 리뷰 작성 페이지 (우선 순위 아님)
 	
 	// 리뷰 추가 (우선 순위 아님)
 	
 	// 리뷰 파일..? (우선 순위 아님)
+	
+	// 회원정보 참조용 ajax통신
+//	@RequestMapping(value="/api/memberinfo{customerId}", method=RequestMethod.POST)
+//	@ResponseBody
+//	public CustomerDto memberinfo(@PathVariable("customerId")String customerId) throws Exception {
+//		CustomerDto mbi = customerService.memberinfo(customerId);
+//		return mbi;
+//	}
 }

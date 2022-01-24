@@ -26,8 +26,7 @@ $(document).ready(function() {
 
 </head>
 <body>
-	<header th:include="layout/header :: header">
-	</header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 	
 	<main class="container my-5 mt-auto">
 		<div class="row mt-5 mx-auto text-center">
@@ -41,13 +40,13 @@ $(document).ready(function() {
 					<h6 class="text-center">상품번호</h6>
 				</div>
 				<div class="col-sm-5 my-auto">
-					<input type="text" id="productIdx" name="productIdx" class="col-sm-9 form-control" placeholder="상품번호를 입력해주세요" disabled>
+					<input type="text" id="productIdx" name="productIdx" class="col-sm-9 form-control" placeholder="상품번호를 입력해주세요" disabled >
 				</div>
 				<div class="col-sm-1 my-auto">
 					<h6 class="text-center">가게이름</h6>
 				</div>
 				<div class="col-sm-5 my-auto">
-					<input type="text" id="adminStore" name="adminStore" class="col-sm-9 form-control" placeholder="가게이름을 입력해주세요" disabled>
+					<input type="text" id="adminStore" name="adminStore" class="col-sm-9 form-control" placeholder="가게이름을 입력해주세요" th:value="${session.customerAdminStore}" readonly>
 				</div>
 			</div>
 			<div class="row my-3">
@@ -57,7 +56,7 @@ $(document).ready(function() {
 				<div class="col-sm-5 my-auto">
 					<div class="dropdown">	
 						<select id="productCategoryIdx" name="productCategoryIdx" class="form-control">
-						    <option  th:if="${#lists.size(AdminCategoryList)} > 0" th:each="adnot : ${AdminCategoryList}" th:value="${adnot.productCategroyIdx}" th:text="${adnot.productCategoryName}"></option>
+						    <option  th:if="${#lists.size(AdminCategoryList)} > 0" th:each="adnot : ${AdminCategoryList}" th:value="${adnot.productCategoryIdx}" th:text="${adnot.productCategoryName}"></option>
 						</select>
 					</div>
 				</div>

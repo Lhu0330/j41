@@ -1,83 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/bootstrap.css">
+<meta charset="UTF-8">
 
-    <script src="./js/bootstrap.bundle.js"></script>
-    <script src="./js/bootstrap.bundle.js"></script>
-    
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 ​
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+
+<script>
+	/* $(document).ready(function() {
+		$("#btn-jang").on("click", function() {
+
+			var cq = $("#num").val();
+			var pi = $("#idx").val();
+
+			var datas = {
+				cartQty : cq,
+				productIdx : pi
+			}; //자바스크립트의 object 타입으로 데이터 넘긴다
+
+			$.ajax({
+				url : "/jr41/addcart",
+				type : "post",
+				data : datas,
+				success : function(data) {
+					if (data.result == "success") {
+						alert("해당 상품이 장바구니에 담겼습니다.");
+					} else {
+						alert("오류!");
+					}
+
+				},
+				// ajax 통신이 실패 시 동작하는 콜백 함수
+				error : function() {
+					alert("오류!");
+				}
+			});
+		});
+	}); */
+
+	/* window.addEventListener("DOMContentLoaded", function() {
+		var btnList = document.querySelector("#btn-jang");
+		btnList.addEventListener("click", function() {
+			frm.action = "/jr41/addcart";
+			frm.submit();
+		});
+	}); */
+</script>
+
 </head>
 <body>
-	<header th:include="layout/header :: header"></header>
-
-    <div class="container mt-5">
+	<header
+		th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
+	<div class="container mt-5">
         <div class="col-lg">
             <div class="row">
                 
                 <div class="col-md-6"  th:each="files : ${board.fileList}" >
-                    	<img th:src="@{'/' + ${files.storedFilePath}}"  class="d-block w-100" style="max-height: 450px;">
+                      <img th:src="@{${files.storedFilePath}}"  class="d-block w-100" style="max-height: 450px;">
                 </div>
-                
-                
-                
-                
+                                
                 <div class="col-md-6">
                 <div class="border border-left-0">
+                <form action="#" >             
                     <table width="400" cellpadding="15" cellspacing="10" >
                     <thead>
                         <colgroup>
-                            <col width="20%" />
+                            <col width="90%" />
                             <col width="10%" />
                         </colgroup>
                         <tr>
-                            <th height="70" >제품명</th>
+                            <th height="70" th:text="${board.productName}" id="name" name="name"></th>
                         </tr>
                     </thead>
                     <tbody >
                         <tr>
                             <td>판매가</td>
-                            <td>판매가</td>
+                            <td  id="price" name="price" th:text="${board.productPrice}"></td>
                         </tr>
                         <tr>
                             <td>상품번호</td>
+                             <td id="idx" ><input th:value="${board.productIdx}" id="idx" name="idx"></td>
                         </tr>
                         <tr>
                             <td>구매수량</td>
+                           <td>
+                           <input type="number" class="form-control-plaintext" id="num" name="num" placeholder="수량 ">
+                           </td>
+                  
                         </tr>
                         <tr>
                             <td>배송비</td>
+                            <td>2500원</td>
                         </tr>
-                        <tr>
-                            <th>총상품금액</th>
-                            <th>총상품금액</th>
-                        </tr>
+                       
                     </tbody>
                     
                     </table>
-				<div class="my-3 clearfix">
-					<a href="" class="btn btn-primary float-center">바로구매</a>
-					<a href="" class="btn btn-primary float-center">장바구니</a>
-				</div>
+            <div class="my-3 ">
+               <button type="submit" id="btn-buy" class="btn btn-dark">바로구매</button>
+               <button type="button" id="btn-jang" class="btn btn-dark">장바구니</button>
+               
+            </div>
 
                 </div>
-                </div>
-            </div>
-            <div class="pt-5">
+                </form>
+
+
+					<!-- 
+					
+					                      
+                <div class="col-md-6">
+                <div class="border border-left-0">
+                <form action="#" > 
+					
+					<div class="col-md-6" th:each="files : ${board.fileList}">
+						<img th:src="@{${files.storedFilePath}}" class="d-block w-100"
+							style="max-height: 450px;">
+					</div>
+
+					<div class="col-md-6">
+						<div class="border border-left-0">
+
+							<table width="400" cellpadding="15" cellspacing="10">
+								<colgroup>
+									<col width="20%" />
+									<col width="10%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th height="70" th:text="${board.productName}" id="name"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>판매가</td>
+										<td id="price" th:text="${board.productPrice}"></td>
+									</tr>
+									<tr>
+										<td>상품번호</td>
+										<td><input th:value="${board.productIdx}"
+											id="product-idx" name="productIdx"></td>
+									</tr>
+									<tr>
+										<td>구매수량</td>
+										<td><input type="number" class="form-control"
+											id="cart-qty" name="cartQty" value="1" placeholder="수량"></td>
+
+									</tr>
+									<tr>
+										<td>배송비</td>
+										<td id="delivery" th:text="${board.deliveryCost}"></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="my-3 ">
+								<button type="submit" id="btn-buy" class="btn btn-dark">바로구매</button>
+								<button type="button" id="btn-jang" class="btn btn-dark">장바구니</button>
+
+							</div>
+						</div>
+					</div> -->
+				</div>
+				<!--    <div class="pt-5">
                 ​<ul class="nav justify-content-center nav-tabs">
     
                     <li class="nav-item">   
                         <a href="#" class="nav-link link-dark active">상품상세</a>
+                        
                     </li>
     
                     <li class="nav-item">
@@ -90,8 +190,12 @@
     
             </div>
             <div>
-                <img src="photo-3.jpg"  th:src="@{/img/photo-3.jpg}"  class="d-block w-100" style="max-height: 500px;">
-            <div class="pt-5">
+                <div class="col-md-6"  th:each="files : ${board.fileList}" >
+                   	<img th:src="@{${files.storedFilePath}}"  class="d-block w-100" style="max-height: 450px;">
+                </div>
+            
+            </div> -->
+				<!--    <div class="pt-5">
                 ​<ul class="nav justify-content-center nav-tabs">
     
                     <li class="nav-item">   
@@ -105,85 +209,14 @@
                         <a href="#" class="nav-link link-dark">상품문의</a>
                     </li>
                 </ul>
-    
             </div>
-            <div class="text-center pt-3 py-5">
-                <h5 class="py-3">상품후기</h5>
-                <table class="table table-hover table-striped">
-					<colgroup>
-						<col width="20%" />
-						<col width="40%" />
-                        <col width="20%" />
-						<col width="10%" />
-					</colgroup>
-					<thead>
-						<tr>
-							<th>아이디</th>
-							<th>contents</th>
-                            <th>점수</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="5">굿</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td colspan="5">내용이 없습니다</td>
-						</tr>
-					</tbody>
-				</table>
-            </div>
-            <div class="pt-5">
-                ​<ul class="nav justify-content-center nav-tabs">
-    
-                    <li class="nav-item">   
-                        <a href="#" class="nav-link link-dark">상품상세</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-dark ">상품후기</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-dark  active">상품문의</a>
-                    </li>
-                </ul>
-    
-            </div>
-            <div class="text-center pt-3 py-5">
-                <h5 class="py-3">상품문의</h5>
-                <table class="table table-hover table-striped">
-					<colgroup>
-						<col width="20%" />
-						<col width="40%" />
-                        <col width="20%" />
-						<col width="10%" />
-					</colgroup>
-					<thead>
-						<tr>
-							<th>아이디</th>
-							<th>contents</th>
-                            <th>점수</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="5">굿</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td colspan="5">내용이 없습니다</td>
-						</tr>
-					</tbody>
-				</table>
-            </div>
-            </div>
-        </div>
-    </div>
-        <footer th:replace="layout/footer :: footer"></footer>
-    
+             -->
+
+
+			</div>
+		</div>
+	</form>
+	<!-- 	</div> -->
+	<footer th:replace="layout/footer :: footer"></footer>
+
 </body>

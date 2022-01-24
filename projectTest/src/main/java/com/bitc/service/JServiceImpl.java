@@ -45,24 +45,36 @@ public class JServiceImpl implements JService {
 	}
 	
 	@Override
-	public void checkedCart(int productIdx) throws Exception {
-		jMapper.checkedCart(productIdx);
+	public void checkedCart(int[] productIdx) throws Exception {
+		for (int i = 0; i < productIdx.length; i++) {
+			jMapper.checkedCart(productIdx[i]);
+		}
 	}
 
 	
 	@Override
-	public void checkedNotCart(int productIdx) throws Exception {
-		jMapper.checkedNotCart(productIdx);
+	public void checkedNotCart() throws Exception {
+		jMapper.checkedNotCart();
 	}
 
 	@Override
-	public void updateCart(JDto cart) throws Exception {
-		jMapper.updateCart(cart);
+	public void increaseCart(int productIdx) throws Exception {
+		jMapper.increaseCart(productIdx);
+	}
+	
+	@Override
+	public void decreaseCart(int productIdx) throws Exception {
+		jMapper.decreaseCart(productIdx);
 	}
 	
 	@Override
 	public void updateSuccess(JDto success) throws Exception {
 		jMapper.updateSuccess(success);
+	}
+	
+	@Override
+	public void addCart(int productIdx, int cartQty) throws Exception {
+		jMapper.addCart(productIdx, cartQty);
 	}
 
 }

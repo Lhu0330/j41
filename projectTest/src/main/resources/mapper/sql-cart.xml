@@ -5,31 +5,40 @@
 	<select id="selectCartList" resultType="com.bitc.dto.JDto">
 		<![CDATA[
 			SELECT
-				product_idx, product_name, cart_qty, (product_price * cart_qty) AS product_price,
-				delivery_cost, checked_yn
+				o.order_detail_idx, o.product_idx, p.product_name,
+				o.cart_qty, (p.product_price * o.cart_qty) AS product_price, 
+				p.delivery_cost, o.checked_yn
 			FROM
-				product
+				product p
+			INNER JOIN
+			    orders_detail o
+			ON
+			    p.product_idx = o.product_idx
 			WHERE
-			    cart_qty > 0	
+			    o.cart_qty > 0	
 			ORDER BY
-				product_idx DESC
-			
+				p.product_idx DESC
 		]]>
 	</select>
-	
+
 	<select id="selectPayList" resultType="com.bitc.dto.JDto">
 		<![CDATA[
 			SELECT
-				product_idx, product_name, cart_qty, (product_price * cart_qty) AS product_price,
-				delivery_cost, checked_yn
+				o.order_detail_idx, o.product_idx, p.product_name,
+				o.cart_qty, (p.product_price * o.cart_qty) AS product_price, 
+				p.delivery_cost, o.checked_yn
 			FROM
-				product
+				product p
+			INNER JOIN
+			    orders_detail o
+			ON
+			    p.product_idx = o.product_idx
 			WHERE
-			    cart_qty > 0
+			    o.cart_qty > 0
 			AND
-			    checked_yn = 'Y'	
+			    o.checked_yn = 'Y'
 			ORDER BY
-				product_idx DESC
+				p.product_idx DESC
 			
 		]]>
 	</select>
@@ -37,95 +46,122 @@
 	<select id="selectSuccessList" resultType="com.bitc.dto.JDto">
 		<![CDATA[
 			SELECT
-				product_idx, product_name, success_qty, product_price, delivery_cost, checked_yn
+				o.order_detail_idx, o.order_idx, o.product_idx, p.product_name, o.success_qty,
+				p.product_price, p.delivery_cost, o.checked_yn
 			FROM
-				product
+				product p
+			INNER JOIN
+			    orders_detail o
+			ON
+			    p.product_idx = o.product_idx
 			WHERE
-			    success_qty > 0	
+			    o.success_qty > 0	
 			ORDER BY
-				product_idx DESC
-			
-		]]>
-	</select>
-	
-	<select id="selectCostCalculate" resultType="com.bitc.dto.JDto">
-		<![CDATA[
-			SELECT
-				SUM(product_price * cart_qty) AS bs_cost, MAX(delivery_cost) AS ds_cost,
-				(SUM(product_price * cart_qty) + MAX(delivery_cost)) AS final_cost
-			FROM
-				product
-			WHERE
-			    cart_qty > 0
-			AND
-			    checked_yn = 'Y'
+				p.product_idx DESC
 			
 		]]>
 	</select>
 
-	<insert id="insertCart" parameterType="com.bitc.dto.JDto">
+	<select id="selectCostCalculate" resultType="com.bitc.dto.JDto">
 		<![CDATA[
-			INSERT INTO
-				product (product_name, cart_qty, product_price, delivery_cost)
-			VALUES
-				(#{productName}, #{cartQty}, #{productPrice}, #{deliveryCost})
+			SELECT
+				SUM(p.product_price * o.cart_qty) AS bs_cost, MAX(p.delivery_cost) AS ds_cost,
+				(SUM(p.product_price * o.cart_qty) + MAX(p.delivery_cost)) AS final_cost
+			FROM
+				product p
+			INNER JOIN
+			    orders_detail o
+			ON
+			    p.product_idx = o.product_idx
+			WHERE
+			    o.cart_qty > 0
+			AND
+			    o.checked_yn = 'Y'
+			
 		]]>
-	</insert>
+	</select>
 
 	<update id="deleteCart" parameterType="int">
 		<![CDATA[
 			UPDATE
-				product
+				orders_detail
 			SET
 				cart_qty = 0
 			WHERE
 				product_idx = #{productIdx}
 		]]>
 	</update>
-	
+
 	<update id="checkedCart" parameterType="com.bitc.dto.JDto">
 		<![CDATA[
 			UPDATE
-				product
+				orders_detail
 			SET
 				checked_yn = 'Y'
 			WHERE
 				product_idx = #{productIdx}
 		]]>
 	</update>
-	
+
 	<update id="checkedNotCart" parameterType="com.bitc.dto.JDto">
 		<![CDATA[
 			UPDATE
-				product
+				orders_detail
 			SET
 				checked_yn = 'N'
-			WHERE
-				product_idx = #{productIdx}
 		]]>
 	</update>
 
-	<update id="updateCart" parameterType="com.bitc.dto.JDto">
+	<update id="increaseCart" parameterType="int">
 		<![CDATA[
 			UPDATE
-				product
+				orders_detail
 			SET
-				product_name = #{productName}, cart_qty = #{cartQty}, product_price = #{productPrice}, delivery_cost = #{deliveryCost}
+				cart_qty = cart_qty + 1
 			WHERE
 				product_idx = #{productIdx}
+			AND
+				cart_qty < 999
+		]]>
+	</update>
+
+	<update id="decreaseCart" parameterType="int">
+		<![CDATA[
+			UPDATE
+				orders_detail
+			SET
+				cart_qty = cart_qty - 1
+			WHERE
+				product_idx = #{productIdx}
+			AND
+				cart_qty > 1
 		]]>
 	</update>
 
 	<update id="updateSuccess" parameterType="com.bitc.dto.JDto">
 		<![CDATA[
 			UPDATE
-				product
+				orders_detail
 			SET
-				success_qty = success_qty + cart_qty, product_stock_cnt = product_stock_cnt - cart_qty, cart_qty = 0
+				success_qty = success_qty + cart_qty, cart_qty = 0
 			WHERE
 				cart_qty > 0
 			AND
-			    checked_yn = 'Y'	
+			    checked_yn = 'Y'
 		]]>
 	</update>
-</mapper >
+	<!--product_stock_cnt = product_stock_cnt - cart_qty, (SET 부분 : 주문 완료 시 
+		주문량만큼 재고량을 감소시키는 구문) -->
+		
+		<update id="addCart" parameterType="com.bitc.dto.JDto">
+		<![CDATA[
+			UPDATE
+				orders_detail
+			SET
+				cart_qty = #{cartQty}
+			WHERE
+				product_idx = #{productIdx}
+		]]>
+	</update>
+		
+</mapper>

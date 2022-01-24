@@ -10,8 +10,34 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<script>
+<script th:inline="javascript">
 	$(document).ready(function() {
+		
+		/*<!CDATA[*/
+		var customerId  = /*[[${session.customerId}]]*/
+		/*]]*/
+		console.log();
+		
+// 		$.ajax ({
+// 			url:'/api/memberinfo'+ customerId,
+// 			method : 'POST',
+// 			data : customerId,
+// 			dataType : "JSON",
+// 			success : function(data) {
+// 				var ads = data.adminStore;
+				
+// 				if (ads !== null) {
+// 					/* location.href="/jr41/adminMain"; */
+// 				}
+				
+// 			},
+			
+// 			error : function(){
+				
+// 			}
+			
+// 		});
+		
 		// 로그아웃
 		$("#btn-logout").on("click", function() {
 			location.href="/login/logout";
@@ -21,8 +47,13 @@
 
 </head>
 <body>
-	<header th:include="layout/header :: header">
-	</header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
+<!-- 	<header th:if="${session.customerId != null}"> -->
+<!-- 		<div th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></div> -->
+<!-- 	</header> -->
+<!-- 	<header th:unless="${session.customerId != null}"> -->
+<!-- 		<div th:replace="layout/header :: headSub('zzzz')"></div> -->
+<!-- 	</header> -->
 	
 	<main>
 		<div class="container">
@@ -32,13 +63,15 @@
 						<h3 class="text-center" th:if="${session.customerId}!=null" th:text="|${session.customerId} 님 안녕하세요|"></h3>
 					</div>
 					<div>
-						<a href="/login/mypage/detail/" th:attrappend="href=${session.customerId}" class="btn btn-primary float-end">회원 정보 수정</a>
-						
-						<!-- <a href="/login/mypage/orderlist/" th:attrappend="href=${session.customerIdx}" class="btn btn-primary float-end me-2">주문 내역 보기</a> -->
-						<!-- <button type="button" id="btn-order-list" class="btn btn-primary float-end me-2">주문 내역 보기</button> -->
+						<a href="/login/mypage/detail/" th:attrappend="href=${session.customerId}" class="btn btn-primary float-end mb-3">회원 정보 수정</a>
 					</div>
 					<!-- 주문 내역 부분 -->
-					<table class="table table-hover">
+					<table class="table table-hover text-center">
+						<colgroup>
+							<col width="30%" />
+							<col width="40%" />
+							<col width="30%" />
+						</colgroup>
 						<thead>
 							<tr>
 								<!-- <th colspan="2">상품정보</th> -->
@@ -51,7 +84,7 @@
 						<tbody>
 							<tr th:if="${#lists.size(orders)} > 0" th:each="list : ${orders}">
 								<td>
-									<a href="###" th:attrappend="href=${list.orderIdx}" th:text="${list.orderIdx}" class="text-decoration-none"></a>
+									<a href="/login/personalorderdetail/" th:attrappend="href=${list.orderIdx}" th:text="${list.orderIdx}" class="text-decoration-none"></a>
 								</td>
 								<td th:text="${list.orderDate}"></td>
 								<td th:text="${list.dispatchedYn}"></td>
@@ -70,7 +103,7 @@
 		</div>
 	</main>
 	
-	<footer th:include="layout/footer :: footer">
+	<footer th:replace="/layout/footer :: footer">
 	</footer>
 </body>
 </html>

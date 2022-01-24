@@ -20,6 +20,7 @@ public class AdminProductDto {
 	private int productStockCnt;
 	private String adminStore;
 	private String deletedYn;
+	private String deliveryCost;
 	private List<AdminProductFileDto> fileList;
 	private String productCategoryName;
 //	product_category_name

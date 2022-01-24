@@ -18,12 +18,16 @@ public interface JService {
 	
 	void deleteCart(int productIdx) throws Exception;
 	
-	void checkedCart(int productIdx) throws Exception;
+	void checkedCart(int[] productIdx) throws Exception;
 	
-	void checkedNotCart(int productIdx) throws Exception;
+	void checkedNotCart() throws Exception;
 	
-	void updateCart(JDto cart) throws Exception;
+	void increaseCart(int productIdx) throws Exception;
+	
+	void decreaseCart(int productIdx) throws Exception;
 	
 	void updateSuccess(JDto success) throws Exception;
+	
+	void addCart(int productIdx, int cartQty) throws Exception;
 	
 }
