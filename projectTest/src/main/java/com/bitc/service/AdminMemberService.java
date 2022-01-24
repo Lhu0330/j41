@@ -2,8 +2,12 @@ package com.bitc.service;
 
 
 
-import com.bitc.dto.AdminMemberDto;
+import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.bitc.dto.AdminMemberDto;
+import com.bitc.dto.JDto;
 import com.github.pagehelper.Page;
 
 // Controller에서 사용할 비지니스 로직의 사용방법을 제공
@@ -21,5 +25,7 @@ public interface AdminMemberService {
 	
 //	지정한 게시글의 모든 정보를 DB에서 가져오는 추상 메서드
 	AdminMemberDto selectAdminMemberDetail(int MemberIdx) throws Exception;
+
+	List<JDto> selectMemberList(@Param("customerIdx") int customerIdx,@Param("ads") String ads) throws Exception;
 	
 }
