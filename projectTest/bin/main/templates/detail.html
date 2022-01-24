@@ -98,11 +98,12 @@
                 
                 </div>
             </div>
-            <div class="pt-5">
+         <!--    <div class="pt-5">
                 ​<ul class="nav justify-content-center nav-tabs">
     
                     <li class="nav-item">   
                         <a href="#" class="nav-link link-dark active">상품상세</a>
+                        
                     </li>
     
                     <li class="nav-item">
@@ -115,8 +116,12 @@
     
             </div>
             <div>
-                <img src="photo-3.jpg"  th:src="@{/img/photo-3.jpg}"  class="d-block w-100" style="max-height: 500px;">
-            <div class="pt-5">
+                <div class="col-md-6"  th:each="files : ${board.fileList}" >
+                   	<img th:src="@{${files.storedFilePath}}"  class="d-block w-100" style="max-height: 450px;">
+                </div>
+            
+            </div> -->
+         <!--    <div class="pt-5">
                 ​<ul class="nav justify-content-center nav-tabs">
     
                     <li class="nav-item">   
@@ -130,82 +135,10 @@
                         <a href="#" class="nav-link link-dark">상품문의</a>
                     </li>
                 </ul>
-    
             </div>
-            <div class="text-center pt-3 py-5">
-                <h5 class="py-3">상품후기</h5>
-                <table class="table table-hover table-striped">
-					<colgroup>
-						<col width="20%" />
-						<col width="40%" />
-                        <col width="20%" />
-						<col width="10%" />
-					</colgroup>
-					<thead>
-						<tr>
-							<th>아이디</th>
-							<th>contents</th>
-                            <th>점수</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="5">굿</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td colspan="5">내용이 없습니다</td>
-						</tr>
-					</tbody>
-				</table>
-            </div>
-            <div class="pt-5">
-                ​<ul class="nav justify-content-center nav-tabs">
-    
-                    <li class="nav-item">   
-                        <a href="#" class="nav-link link-dark">상품상세</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-dark ">상품후기</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link link-dark  active">상품문의</a>
-                    </li>
-                </ul>
-    
-            </div>
-            <div class="text-center pt-3 py-5">
-                <h5 class="py-3">상품문의</h5>
-                <table class="table table-hover table-striped">
-					<colgroup>
-						<col width="20%" />
-						<col width="40%" />
-                        <col width="20%" />
-						<col width="10%" />
-					</colgroup>
-					<thead>
-						<tr>
-							<th>아이디</th>
-							<th>contents</th>
-                            <th>점수</th>
-							<th>작성일</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td colspan="5">굿</td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td colspan="5">내용이 없습니다</td>
-						</tr>
-					</tbody>
-				</table>
-            </div>
+             -->
+            
+          
             </div>
         </div>
     </div>
