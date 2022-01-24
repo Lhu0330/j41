@@ -22,6 +22,7 @@
 	
 	<!-- 메뉴별 화면 -->
 	<select id="selectMenuList" parameterType="int" resultType="com.bitc.dto.ProjectDto">
+		
 		<![CDATA[
 			SELECT
 				*
@@ -31,8 +32,14 @@
    				product_category as b
    			ON
   				 a.product_category_idx = b.product_category_idx
+  			  		
+  		    JOIN
+   				product_file as c
+   			ON
+  				 c.product_idx= a.product_idx
   			and 
   			  a.product_category_idx = #{productCategoryIdx}
+		
 		
 		]]>
 		
