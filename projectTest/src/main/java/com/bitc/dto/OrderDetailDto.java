@@ -12,4 +12,6 @@ public class OrderDetailDto {
 	private int orderSum;
 	
 	private String productName;
+	private int productPrice;
+	private int deliveryCost;
 }
