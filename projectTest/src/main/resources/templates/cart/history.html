@@ -14,16 +14,21 @@
 
 <script>
 	window.addEventListener("DOMContentLoaded", function() {
-		var btnList = document.querySelector("#btn-cartlist");
-		btnList.addEventListener("click", function() {
+		var btnList1 = document.querySelector("#btn-cartlist");
+		btnList1.addEventListener("click", function() {
 			location.href = "/cart.do";
+		});
+		
+		var btnList2 = document.querySelector("#btn-main");
+		btnList2.addEventListener("click", function() {
+			location.href = "/jr41";
 		});
 	});
 </script>
 
 </head>
 <body>
-	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
+	<header th:include="layout/header :: header"> </header>
 
 	<main class="container mt-5">
 		<div class="container mt-5 px-1">
@@ -74,7 +79,7 @@
 					<button type="button" class="btn btn-outline-secondary float-middle btn-lg btn-block"
 						id="btn-cartlist">장바구니</button>
 					<button
-						class="btn btn-outline-primary float-middle btn-lg btn-block">쇼핑
+						class="btn btn-outline-primary float-middle btn-lg btn-block" id="btn-main">쇼핑
 						계속하기</button>
 				</div>
 			</div>
