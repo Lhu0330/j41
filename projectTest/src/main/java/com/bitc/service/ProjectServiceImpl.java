@@ -55,6 +55,8 @@ public class ProjectServiceImpl implements ProjectService {
 			return projectMapper.selectMenuList(productCategoryIdx);
 		}
 
+		
+		
 		@Override
 		public ProjectDto selectBoardDetail(int productIdx) throws Exception {
 	
