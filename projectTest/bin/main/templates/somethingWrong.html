@@ -2,7 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Account Deleted</title>
+<title>잘못된 접근</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -12,28 +12,30 @@
 
 <script>
 	$(document).ready(function() {
-		$("#btn-register").on("click", function() {
-			location.href="/register";
+		$("#btn-main").on("click", function() {
+			location.href="/jr41";
 		});
 		
 		setTimeout(function() {
-			location.href="/register";
+			location.href="/jr41";
 		}, 5000);
 	});
 </script>
+
 </head>
 <body>
-	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
+	<header th:include="layout/header :: header">
+	</header>
 	
 	<main>
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 mx-auto border rounded p-4">
-					<h3 class="text-center">계정 삭제가 완료되었습니다.</h3>
-					<p class="text-center">5초 후 회원가입 페이지로 이동합니다.</p>
+					<h3 class="text-center">잘못된 접근이에요.</h3>
+					<p class="text-center">5초 뒤 메인 페이지로 이동합니다.</p>
 					
 					<div class="d-grid grap-3">
-						<button type="button" class="btn btn-primary" id="btn-register">회원가입</button>
+						<button type="button" class="btn btn-primary" id="btn-main">메인 페이지로 이동</button>
 					</div>
 				</div>
 			</div>

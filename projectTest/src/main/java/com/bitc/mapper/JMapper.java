@@ -11,6 +11,8 @@ public interface JMapper {
 
 	public List<JDto> selectCartList() throws Exception;
 	
+	public List<JDto> selectPayList() throws Exception;
+	
 	public List<JDto> selectSuccessList() throws Exception;
 	
 	public JDto selectCostCalculate(JDto cart) throws Exception;
@@ -19,7 +21,13 @@ public interface JMapper {
 
 	public void deleteCart(int productIdx) throws Exception;
 
-	void updateCart(JDto cart) throws Exception;
+	void checkedCart(int productIdx) throws Exception;
+	
+	void checkedNotCart() throws Exception;
+	
+	void increaseCart(int productIdx) throws Exception;
+	
+	void decreaseCart(int productIdx) throws Exception;
 	
 	void updateSuccess(JDto success) throws Exception;
 

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.bitc.dto.ProductFileDto;
 import com.bitc.dto.ProjectDto;
+import com.github.pagehelper.Page;
 
 @Mapper
 public interface ProjectMapper {
@@ -15,18 +16,21 @@ public interface ProjectMapper {
 
 	public List<ProjectDto> selectList() throws Exception;
 
-	public ProjectDto selectBoardDetail(int idx) throws Exception;
-	
 //	DB에 연결하여 게시글의 첨부파일 정보를 DB에 저장하는 메서드
 	void insertBoardFileList(List<ProductFileDto> list) throws Exception;
 	
 //	DB에 연결하여 게시글의 첨부파일 정보를 가져오는 메서드
-	List<ProductFileDto> selectBoardFileList(int idx) throws Exception;	
+	List<ProjectDto> selectBoardFileList(int productIdx) throws Exception;	
 	
 	
 	ProductFileDto selectBoardFileInfo(@Param("fileIdx") int fileIdx, @Param("boardIdx") int boardIdx) throws Exception;
 
 
+	// 메뉴별 상품 리스트
+	Page<ProjectDto> selectMenuList( int productCategoryIdx) throws Exception;
+
+	//상품상세화면
+	public ProjectDto selectBoardDetail(int productIdx) throws Exception;
 	
 	
 	

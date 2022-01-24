@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bitc.dto.CustomerDto;
+import com.bitc.dto.OrderDetailDto;
 import com.bitc.dto.OrdersDto;
 import com.bitc.mapper.CustomerMapper;
 
@@ -41,6 +42,12 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.selectCustomerInfoYn(customerId, customerPw);
 	}
 
+	// 고객정보 가져오기
+	@Override
+	public CustomerDto bringCustomerInfo(String customerId) throws Exception {
+		return customerMapper.bringCustomerInfo(customerId);
+	}
+		
 	// 회원 정보 수정 페이지
 	@Override
 	public CustomerDto selectCustomerDetail(String customerId) throws Exception {
@@ -65,8 +72,15 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerMapper.selectOrderList(customerIdx);
 	}
 	
+<<<<<<< HEAD
 	@Override
 	public CustomerDto memberInfo(String customerId) throws Exception {
 		return customerMapper.memberInfo(customerId);
+=======
+	// 주문 자세히 보기
+	@Override
+	public List<OrderDetailDto> selectPODList(int orderIdx) throws Exception {
+		return customerMapper.selectPODList(orderIdx);
+>>>>>>> ae5bec8d0a4dbe78e4f9040358989c771e750def
 	}
 }
