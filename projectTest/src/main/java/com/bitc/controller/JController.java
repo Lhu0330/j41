@@ -108,14 +108,13 @@ public class JController {
 		mv.addObject("successList", successList);
 		return mv;
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/jr41/addcart", method = RequestMethod.POST)
-	public String jangbaguni(@RequestParam("productIdx") int productIdx, @RequestParam("cartQty") int cartQty) throws Exception {
-		
-		jService.addCart(productIdx, cartQty);
-		return "redirect:/cart.do";
-	
+	@RequestMapping(value = "/jr41/addcart", method = RequestMethod.POST)
+	public String jangbaguni(JDto cart) throws Exception {
+
+		jService.addCart(cart);
+		return "success";
 	}
 
 }

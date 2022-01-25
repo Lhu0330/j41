@@ -73,8 +73,8 @@ public class JServiceImpl implements JService {
 	}
 	
 	@Override
-	public void addCart(int productIdx, int cartQty) throws Exception {
-		jMapper.addCart(productIdx, cartQty);
+	public void addCart(JDto cart) throws Exception {
+		jMapper.addCart(cart);
 	}
 
 }
