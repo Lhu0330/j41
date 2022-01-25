@@ -18,106 +18,113 @@
 
 
 <script>
-	/* $(document).ready(function() {
-		$("#btn-jang").on("click", function() {
+	$(document).ready(
+			function() {
+				$("#btn-jang").on(
+						"click",
+						function() {
 
-			var cq = $("#num").val();
-			var pi = $("#idx").val();
+							var cq = $("#cart-qty").val();
+							var pi = $("#product-idx").text();
 
-			var datas = {
-				cartQty : cq,
-				productIdx : pi
-			}; //자바스크립트의 object 타입으로 데이터 넘긴다
+							var datas = {
+								cartQty : cq,
+								productIdx : pi
+							}; //자바스크립트의 object 타입으로 데이터 넘긴다
 
-			$.ajax({
-				url : "/jr41/addcart",
-				type : "post",
-				data : datas,
-				success : function(data) {
-					if (data.result == "success") {
-						alert("해당 상품이 장바구니에 담겼습니다.");
-					} else {
-						alert("오류!");
-					}
+							$.ajax({
+								url : "/jr41/addcart",
+								type : "post",
+								data : datas,
+								success : function(data) {
+									if (data == "success") {
+										if ($("#cart-qty").val() < 1
+												|| $("#cart-qty").val() > 999) {
+											alert("숫자를 잘못 입력하셨습니다.");
+											location.reload();
+										} else {
+											alert("해당 상품이 장바구니에 담겼습니다.");
+											location.href = "/cart.do";
+										}
+									} else {
+										alert("오류!");
+									}
 
-				},
-				// ajax 통신이 실패 시 동작하는 콜백 함수
-				error : function() {
-					alert("오류!");
-				}
+								},
+								// ajax 통신이 실패 시 동작하는 콜백 함수
+								error : function() {
+									alert("오류!");
+								}
+							});
+						});
 			});
-		});
-	}); */
 
-	/* window.addEventListener("DOMContentLoaded", function() {
-		var btnList = document.querySelector("#btn-jang");
-		btnList.addEventListener("click", function() {
-			frm.action = "/jr41/addcart";
-			frm.submit();
-		});
-	}); */
+	// 	window.addEventListener("DOMContentLoaded", function() {
+	// 		var btnList = document.querySelector("#btn-jang");
+	// 		btnList.addEventListener("click", function() {
+	// 			if($("#cart-qty").val() < 1 || $("#cart-qty").val() > 999) {
+	// 				alert("숫자를 잘못 입력하셨습니다.");
+	// 			} else {
+	// 			frm.action = "/jr41/addcart";
+	// 			frm.submit();
+	// 			}
+	// 		});
+	// 	});
 </script>
 
 </head>
 <body>
 	<header
 		th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
-	<div class="container mt-5">
-        <div class="col-lg">
-            <div class="row">
-                
-                <div class="col-md-6"  th:each="files : ${board.fileList}" >
-                      <img th:src="@{${files.storedFilePath}}"  class="d-block w-100" style="max-height: 450px;">
-                </div>
-                                
-                <div class="col-md-6">
-                <div class="border border-left-0">
-                <form action="#" >             
-                    <table width="400" cellpadding="15" cellspacing="10" >
-                    <thead>
-                        <colgroup>
-                            <col width="90%" />
-                            <col width="10%" />
-                        </colgroup>
-                        <tr>
-                            <th height="70" th:text="${board.productName}" id="name" name="name"></th>
-                        </tr>
-                    </thead>
-                    <tbody >
-                        <tr>
-                            <td>판매가</td>
-                            <td  id="price" name="price" th:text="${board.productPrice}"></td>
-                        </tr>
-                        <tr>
-                            <td>상품번호</td>
-                             <td id="idx" ><input th:value="${board.productIdx}" id="idx" name="idx"></td>
-                        </tr>
-                        <tr>
-                            <td>구매수량</td>
-                           <td>
-                           <input type="number" class="form-control-plaintext" id="num" name="num" placeholder="수량 ">
-                           </td>
-                  
-                        </tr>
-                        <tr>
-                            <td>배송비</td>
-                            <td>2500원</td>
-                        </tr>
-                       
-                    </tbody>
-                    
-                    </table>
-            <div class="my-3 ">
-               <button type="submit" id="btn-buy" class="btn btn-dark">바로구매</button>
-               <button type="button" id="btn-jang" class="btn btn-dark">장바구니</button>
-               
-            </div>
+	<form name="frm" method="post">
+		<div class="container mt-5">
+			<div class="col-lg">
+				<div class="row">
 
-                </div>
-                </form>
+					<div class="col-md-6" th:each="files : ${board.fileList}">
+						<img th:src="@{${files.storedFilePath}}" class="d-block w-100"
+							style="max-height: 450px;">
+					</div>
 
-
-					<!-- 
+					<div class="col-md-6">
+						<div class="border border-left-0">
+							<table width="400" cellpadding="15" cellspacing="10">
+								<colgroup>
+									<col width="80%" />
+									<col width="20%" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th height="70" th:text="${board.productName}" id="name"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>판매가</td>
+										<td id="price" th:text="${board.productPrice}"></td>
+									</tr>
+									<tr>
+										<td>상품번호</td>
+										<td id="product-idx" th:text="${board.productIdx}"></td>
+									</tr>
+									<tr>
+										<td>구매수량</td>
+										<td><input type="number" min="1" max="999"
+											class="form-control-plaintext" id="cart-qty" name="cartQty"
+											value="1" placeholder="수량"></td>
+									</tr>
+									<tr>
+										<td>배송비</td>
+										<td id="delivery-cost" th:text="${board.deliveryCost}"></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="my-3 ">
+								<button type="submit" id="btn-buy" class="btn btn-dark">바로구매</button>
+								<button type="button" id="btn-jang" class="btn btn-dark">장바구니</button>
+							</div>
+						</div>
+						<!-- 
 					
 					                      
                 <div class="col-md-6">
@@ -171,8 +178,8 @@
 							</div>
 						</div>
 					</div> -->
-				</div>
-				<!--    <div class="pt-5">
+					</div>
+					<!--    <div class="pt-5">
                 ​<ul class="nav justify-content-center nav-tabs">
     
                     <li class="nav-item">   
@@ -195,7 +202,7 @@
                 </div>
             
             </div> -->
-				<!--    <div class="pt-5">
+					<!--    <div class="pt-5">
                 ​<ul class="nav justify-content-center nav-tabs">
     
                     <li class="nav-item">   
@@ -213,6 +220,7 @@
              -->
 
 
+				</div>
 			</div>
 		</div>
 	</form>
