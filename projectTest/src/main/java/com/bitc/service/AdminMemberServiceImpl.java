@@ -56,7 +56,7 @@ public class AdminMemberServiceImpl implements AdminMemberService {
 	}
 	
 	@Override
-	public List<JDto> selectMemberList(@Param("customerIdx") int customerIdx,@Param("ads") String ads) throws Exception {
+	public List<JDto> selectMemberList(@Param("customerIdx") int customerIdx, @Param("ads") String ads) throws Exception {
 		List<JDto> admh = adminMemberMapper.selectMemberList(customerIdx, ads);
 		
 		return admh;

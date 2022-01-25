@@ -25,7 +25,8 @@
         <div class="row mb-3">
           <div class="col-sm-3" th:each="list : ${MenuList.getList()}">
             <div class="card shadow-sm">
-              <img src="photo-3.jpg"  th:src="@{/images/photo-3.jpg}" style="max-height: 300px;">
+             <!-- 	<img src="photo-3.jpg"  th:src="${MenuList.storedFilePath}" style="max-height: 300px;"> -->
+              <img src="photo-3.jpg"  th:src="${list.storedFilePath}" style="max-height: 300px;"> 
               <div class="card-body">
          <!--           <p class="card-text" th:text="${MenuList[1].productName}"></p> -->
                  <a href="/jr41/list/detail/"  class="card-text nav-link link-dark" th:text="${list.productName}" th:attrappend="href=${list.productIdx}"></a>
