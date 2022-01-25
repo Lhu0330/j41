@@ -117,13 +117,17 @@
 				frm.submit();
 			}
 		});
+		
+		$("#btn-list").on("click", function() {
+			location.href="/jr41";
+		});
 
 	});
 </script>
 
 </head>
 <body>
-	<header th:include="layout/header :: header"> </header>
+	<header th:replace="layout/header :: headMain(${session.customerId}, ${session.customerAdminStore})"></header>
 
 	<main class="container mt-5">
 		<div class="container mt-5 px-1">
@@ -199,9 +203,7 @@
 						</tbody>
 					</table>
 					<div class="clearfix col text-center">
-						<button
-							class="btn btn-outline-primary float-middle btn-lg btn-block">쇼핑
-							계속하기</button>
+						<button type="button" class="btn btn-outline-primary float-middle btn-lg btn-block btn-list" id="btn-list">쇼핑	계속하기</button>
 						<button class="btn btn-primary float-middle btn-lg btn-block"
 							id="btn-submit">구매하기</button>
 					</div>
